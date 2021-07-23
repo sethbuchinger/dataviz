@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style type="text/css">
+        body {
+            margin:0;position:fixed;top:0;right:0;bottom:0;left:0;
+            font-family: Verdana, sans-serif;
+        }
+        .grid line {
+            stroke: lightgrey;
+            stroke-opacity: 0.7;
+            shape-rendering: crispEdges;
+        }
+        #visualisation > path {
+            stroke-linecap: round;
+        }
+
+        #visualisation > path,
+        .x.axis {
+
+        }
+
+        #scene a, #scene a:visited{
+
+            padding: 5px;
+            background: #ddd;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        #graph_description{
+            float:left;
+            width: 200px;
+            margin-right: 50px;
+            height: 500px;
+        }
+
+        path.domain,
+        .axis .tick line {
+            stroke: none;
+        }
+
+        .tick text {
+            fill: #767676;
+            font-size: 12px;
+        }
+
+        .track,
+        .track-inset,
+        .track-overlay {
+            stroke-linecap: round;
+        }
+
+        .track {
+            stroke: #000;
+            stroke-opacity: 0.3;
+            stroke-width: 10px;
+        }
+        .track-inset {
+            stroke: #dcdcdc;
+            stroke-width: 8px;
+        }
+        .track-overlay {
+            pointer-events: stroke;
+            stroke-width: 50px;
+            stroke: transparent;
+            cursor: crosshair;
+        }
+
+        .handle {
+            fill: #fff;
+            stroke: #000;
+            stroke-opacity: 0.5;
+            stroke-width: 1.25px;
+        }
+
+        .verticalLine{
+            border-left: thick solid #000000;
+        }
+        ul {
+            padding: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="scene">
+    <a onclick ="switchToScene1()">1</a>
+    <a onclick="switchToScene2()">2</a>
+    <a onclick ="switchToScene3()">3</a>
+
+</div>
+<div id = "graph_description">
+    <div id="scene_1" class="scene_1">
+        <h2>Global EV Growth</h2>
+        <h4>2010-2015</h4>
+        <p>This is the global EV Growth over the past 10 years</p>
+    </div>
+
+    <div id="scene_2" class="scene_2" style="display:none">
+        <h2>Title of Second Slide</h2>
+        <h4>2010-2015</h4>
+        <p>This is the global EV Growth over the past 10 years</p>
+    </div>
+
+    <div id="scene_3" class="scene_3" style="display:none">
+        <h2>EV Adoption Projections</h2>
+        <h4></h4>
+        <p>This graph is indented to show EV projections</p>
+    </div>
+
+
+
+</div>
+<svg id="visualisation" width="960" height="500"></svg>
+<div id = "slider"></div>
+<script src="js/script.js"></script>
+</body>

@@ -1,0 +1,346 @@
+region,category,parameter,mode,powertrain,year,unit,value
+Australia,Historical,EV sales share,Cars,EV,2011,percent,0.006000000052154064
+Australia,Historical,EV sales share,Cars,EV,2012,percent,0.028999999165534973
+Australia,Historical,EV sales share,Cars,EV,2013,percent,0.032999999821186066
+Australia,Historical,EV sales share,Cars,EV,2014,percent,0.14900000393390656
+Australia,Historical,EV sales share,Cars,EV,2015,percent,0.19099999964237213
+Australia,Historical,EV sales share,Cars,EV,2016,percent,0.1469999998807907
+Australia,Historical,EV sales share,Cars,EV,2017,percent,0.24899999797344208
+Australia,Historical,EV sales share,Cars,EV,2018,percent,0.41100001335144043
+Australia,Historical,EV sales share,Cars,EV,2019,percent,1.1330000162124634
+Australia,Historical,EV sales share,Cars,EV,2020,percent,0.9509999752044678
+Belgium,Historical,EV sales share,Cars,EV,2011,percent,0.032999999821186066
+Belgium,Historical,EV sales share,Cars,EV,2012,percent,0.11599999666213989
+Belgium,Historical,EV sales share,Cars,EV,2013,percent,0.10999999940395355
+Belgium,Historical,EV sales share,Cars,EV,2014,percent,0.43799999356269836
+Belgium,Historical,EV sales share,Cars,EV,2015,percent,0.7649999856948853
+Belgium,Historical,EV sales share,Cars,EV,2016,percent,1.6169999837875366
+Belgium,Historical,EV sales share,Cars,EV,2017,percent,2.6459999084472656
+Belgium,Historical,EV sales share,Cars,EV,2018,percent,2.428999900817871
+Belgium,Historical,EV sales share,Cars,EV,2019,percent,3.2290000915527344
+Belgium,Historical,EV sales share,Cars,EV,2020,percent,11.17199993133545
+Brazil,Historical,EV sales share,Cars,EV,2012,percent,0.003000000026077032
+Brazil,Historical,EV sales share,Cars,EV,2013,percent,0.004999999888241291
+Brazil,Historical,EV sales share,Cars,EV,2014,percent,0.0020000000949949026
+Brazil,Historical,EV sales share,Cars,EV,2015,percent,0.004000000189989805
+Brazil,Historical,EV sales share,Cars,EV,2016,percent,0.009999999776482582
+Brazil,Historical,EV sales share,Cars,EV,2017,percent,0.017000000923871994
+Brazil,Historical,EV sales share,Cars,EV,2018,percent,0.01899999938905239
+Brazil,Historical,EV sales share,Cars,EV,2019,percent,0.08399999886751175
+Brazil,Historical,EV sales share,Cars,EV,2020,percent,0.11599999666213989
+Canada,Historical,EV sales share,Cars,EV,2011,percent,0.04100000113248825
+Canada,Historical,EV sales share,Cars,EV,2012,percent,0.14800000190734863
+Canada,Historical,EV sales share,Cars,EV,2013,percent,0.22200000286102295
+Canada,Historical,EV sales share,Cars,EV,2014,percent,0.3569999933242798
+Canada,Historical,EV sales share,Cars,EV,2015,percent,0.45899999141693115
+Canada,Historical,EV sales share,Cars,EV,2016,percent,0.7519999742507935
+Canada,Historical,EV sales share,Cars,EV,2017,percent,1.0180000066757202
+Canada,Historical,EV sales share,Cars,EV,2018,percent,2.753999948501587
+Canada,Historical,EV sales share,Cars,EV,2019,percent,3.253000020980835
+Canada,Historical,EV sales share,Cars,EV,2020,percent,4.1570000648498535
+Chile,Historical,EV sales share,Cars,EV,2011,percent,0.0020000000949949026
+Chile,Historical,EV sales share,Cars,EV,2012,percent,0.0020000000949949026
+Chile,Historical,EV sales share,Cars,EV,2013,percent,0.0020000000949949026
+Chile,Historical,EV sales share,Cars,EV,2014,percent,0.007000000216066837
+Chile,Historical,EV sales share,Cars,EV,2015,percent,0.01899999938905239
+Chile,Historical,EV sales share,Cars,EV,2016,percent,0.014999999664723873
+Chile,Historical,EV sales share,Cars,EV,2017,percent,0.05999999865889549
+Chile,Historical,EV sales share,Cars,EV,2018,percent,0.07100000232458115
+Chile,Historical,EV sales share,Cars,EV,2019,percent,0.14100000262260437
+Chile,Historical,EV sales share,Cars,EV,2020,percent,0.1289999932050705
+China,Historical,EV sales share,Cars,EV,2010,percent,0.009999999776482582
+China,Historical,EV sales share,Cars,EV,2011,percent,0.03400000184774399
+China,Historical,EV sales share,Cars,EV,2012,percent,0.06199999898672104
+China,Historical,EV sales share,Cars,EV,2013,percent,0.08299999684095383
+China,Historical,EV sales share,Cars,EV,2014,percent,0.3540000021457672
+China,Historical,EV sales share,Cars,EV,2015,percent,0.9440000057220459
+China,Historical,EV sales share,Cars,EV,2016,percent,1.3530000448226929
+China,Historical,EV sales share,Cars,EV,2017,percent,2.3289999961853027
+China,Historical,EV sales share,Cars,EV,2018,percent,4.465000152587891
+China,Historical,EV sales share,Cars,EV,2019,percent,4.789999961853027
+China,Historical,EV sales share,Cars,EV,2020,percent,5.747000217437744
+Denmark,Historical,EV sales share,Cars,EV,2010,percent,0.03099999949336052
+Denmark,Historical,EV sales share,Cars,EV,2011,percent,0.24799999594688416
+Denmark,Historical,EV sales share,Cars,EV,2012,percent,0.29100000858306885
+Denmark,Historical,EV sales share,Cars,EV,2013,percent,0.2750000059604645
+Denmark,Historical,EV sales share,Cars,EV,2014,percent,0.8389999866485596
+Denmark,Historical,EV sales share,Cars,EV,2015,percent,2.1730000972747803
+Denmark,Historical,EV sales share,Cars,EV,2016,percent,0.6240000128746033
+Denmark,Historical,EV sales share,Cars,EV,2017,percent,0.5889999866485596
+Denmark,Historical,EV sales share,Cars,EV,2018,percent,2.0929999351501465
+Denmark,Historical,EV sales share,Cars,EV,2019,percent,4.010000228881836
+Denmark,Historical,EV sales share,Cars,EV,2020,percent,16.357999801635742
+Europe,Historical,EV sales share,Cars,EV,2010,percent,0.017000000923871994
+Europe,Historical,EV sales share,Cars,EV,2011,percent,0.0689999982714653
+Europe,Historical,EV sales share,Cars,EV,2012,percent,0.19599999487400055
+Europe,Historical,EV sales share,Cars,EV,2013,percent,0.42100000381469727
+Europe,Historical,EV sales share,Cars,EV,2014,percent,0.6539999842643738
+Europe,Historical,EV sales share,Cars,EV,2015,percent,1.1690000295639038
+Europe,Historical,EV sales share,Cars,EV,2016,percent,1.2130000591278076
+Europe,Historical,EV sales share,Cars,EV,2017,percent,1.6690000295639038
+Europe,Historical,EV sales share,Cars,EV,2018,percent,2.1740000247955322
+Europe,Historical,EV sales share,Cars,EV,2019,percent,3.2139999866485596
+Europe,Historical,EV sales share,Cars,EV,2020,percent,9.98799991607666
+Finland,Historical,EV sales share,Cars,EV,2011,percent,0.02500000037252903
+Finland,Historical,EV sales share,Cars,EV,2012,percent,0.16699999570846558
+Finland,Historical,EV sales share,Cars,EV,2013,percent,0.210999995470047
+Finland,Historical,EV sales share,Cars,EV,2014,percent,0.41200000047683716
+Finland,Historical,EV sales share,Cars,EV,2015,percent,0.625
+Finland,Historical,EV sales share,Cars,EV,2016,percent,1.187999963760376
+Finland,Historical,EV sales share,Cars,EV,2017,percent,2.513000011444092
+Finland,Historical,EV sales share,Cars,EV,2018,percent,4.525000095367432
+Finland,Historical,EV sales share,Cars,EV,2019,percent,6.900000095367432
+Finland,Historical,EV sales share,Cars,EV,2020,percent,18.12700080871582
+France,Historical,EV sales share,Cars,EV,2010,percent,0.00800000037997961
+France,Historical,EV sales share,Cars,EV,2011,percent,0.12600000202655792
+France,Historical,EV sales share,Cars,EV,2012,percent,0.3370000123977661
+France,Historical,EV sales share,Cars,EV,2013,percent,0.546999990940094
+France,Historical,EV sales share,Cars,EV,2014,percent,0.7160000205039978
+France,Historical,EV sales share,Cars,EV,2015,percent,1.2170000076293945
+France,Historical,EV sales share,Cars,EV,2016,percent,1.4869999885559082
+France,Historical,EV sales share,Cars,EV,2017,percent,1.8079999685287476
+France,Historical,EV sales share,Cars,EV,2018,percent,2.184000015258789
+France,Historical,EV sales share,Cars,EV,2019,percent,2.822000026702881
+France,Historical,EV sales share,Cars,EV,2020,percent,11.315999984741211
+Germany,Historical,EV sales share,Cars,EV,2010,percent,0.004999999888241291
+Germany,Historical,EV sales share,Cars,EV,2011,percent,0.052000001072883606
+Germany,Historical,EV sales share,Cars,EV,2012,percent,0.10899999737739563
+Germany,Historical,EV sales share,Cars,EV,2013,percent,0.23399999737739563
+Germany,Historical,EV sales share,Cars,EV,2014,percent,0.4180000126361847
+Germany,Historical,EV sales share,Cars,EV,2015,percent,0.7179999947547913
+Germany,Historical,EV sales share,Cars,EV,2016,percent,0.7289999723434448
+Germany,Historical,EV sales share,Cars,EV,2017,percent,1.5609999895095825
+Germany,Historical,EV sales share,Cars,EV,2018,percent,1.9270000457763672
+Germany,Historical,EV sales share,Cars,EV,2019,percent,2.9230000972747803
+Germany,Historical,EV sales share,Cars,EV,2020,percent,13.53600025177002
+Greece,Historical,EV sales share,Cars,EV,2013,percent,0.004999999888241291
+Greece,Historical,EV sales share,Cars,EV,2014,percent,0.054999999701976776
+Greece,Historical,EV sales share,Cars,EV,2015,percent,0.0989999994635582
+Greece,Historical,EV sales share,Cars,EV,2016,percent,0.12200000137090683
+Greece,Historical,EV sales share,Cars,EV,2017,percent,0.21699999272823334
+Greece,Historical,EV sales share,Cars,EV,2018,percent,0.289000004529953
+Greece,Historical,EV sales share,Cars,EV,2019,percent,0.42100000381469727
+Greece,Historical,EV sales share,Cars,EV,2020,percent,2.631999969482422
+Iceland,Historical,EV sales share,Cars,EV,2010,percent,0.05999999865889549
+Iceland,Historical,EV sales share,Cars,EV,2012,percent,0.3109999895095825
+Iceland,Historical,EV sales share,Cars,EV,2013,percent,1.281999945640564
+Iceland,Historical,EV sales share,Cars,EV,2014,percent,2.1440000534057617
+Iceland,Historical,EV sales share,Cars,EV,2015,percent,3.6449999809265137
+Iceland,Historical,EV sales share,Cars,EV,2016,percent,5.564000129699707
+Iceland,Historical,EV sales share,Cars,EV,2017,percent,11.704999923706055
+Iceland,Historical,EV sales share,Cars,EV,2018,percent,17.2189998626709
+Iceland,Historical,EV sales share,Cars,EV,2019,percent,22.600000381469727
+Iceland,Historical,EV sales share,Cars,EV,2020,percent,52.369998931884766
+India,Historical,EV sales share,Cars,EV,2010,percent,0.020999999716877937
+India,Historical,EV sales share,Cars,EV,2011,percent,0.05700000002980232
+India,Historical,EV sales share,Cars,EV,2012,percent,0.007000000216066837
+India,Historical,EV sales share,Cars,EV,2013,percent,0.01600000075995922
+India,Historical,EV sales share,Cars,EV,2014,percent,0.03700000047683716
+India,Historical,EV sales share,Cars,EV,2015,percent,0.01600000075995922
+India,Historical,EV sales share,Cars,EV,2016,percent,0.06700000166893005
+India,Historical,EV sales share,Cars,EV,2017,percent,0.03799999877810478
+India,Historical,EV sales share,Cars,EV,2018,percent,0.06499999761581421
+India,Historical,EV sales share,Cars,EV,2019,percent,0.06800000369548798
+India,Historical,EV sales share,Cars,EV,2020,percent,0.0560000017285347
+Indonesia,Historical,EV sales share,Cars,EV,2017,percent,0.003000000026077032
+Indonesia,Historical,EV sales share,Cars,EV,2019,percent,0.012000000104308128
+Indonesia,Historical,EV sales share,Cars,EV,2020,percent,0.05400000140070915
+Italy,Historical,EV sales share,Cars,EV,2010,percent,0.0020000000949949026
+Italy,Historical,EV sales share,Cars,EV,2011,percent,0.006000000052154064
+Italy,Historical,EV sales share,Cars,EV,2012,percent,0.032999999821186066
+Italy,Historical,EV sales share,Cars,EV,2013,percent,0.07500000298023224
+Italy,Historical,EV sales share,Cars,EV,2014,percent,0.10100000351667404
+Italy,Historical,EV sales share,Cars,EV,2015,percent,0.13500000536441803
+Italy,Historical,EV sales share,Cars,EV,2016,percent,0.15399999916553497
+Italy,Historical,EV sales share,Cars,EV,2017,percent,0.24699999392032623
+Italy,Historical,EV sales share,Cars,EV,2018,percent,0.5090000033378601
+Italy,Historical,EV sales share,Cars,EV,2019,percent,0.8939999938011169
+Italy,Historical,EV sales share,Cars,EV,2020,percent,4.335000038146973
+Japan,Historical,EV sales share,Cars,EV,2010,percent,0.054999999701976776
+Japan,Historical,EV sales share,Cars,EV,2011,percent,0.328000009059906
+Japan,Historical,EV sales share,Cars,EV,2012,percent,0.5299999713897705
+Japan,Historical,EV sales share,Cars,EV,2013,percent,0.6439999938011169
+Japan,Historical,EV sales share,Cars,EV,2014,percent,0.6690000295639038
+Japan,Historical,EV sales share,Cars,EV,2015,percent,0.5569999814033508
+Japan,Historical,EV sales share,Cars,EV,2016,percent,0.5759999752044678
+Japan,Historical,EV sales share,Cars,EV,2017,percent,1.034000039100647
+Japan,Historical,EV sales share,Cars,EV,2018,percent,0.9440000057220459
+Japan,Historical,EV sales share,Cars,EV,2019,percent,0.7490000128746033
+Japan,Historical,EV sales share,Cars,EV,2020,percent,0.6370000243186951
+Korea,Historical,EV sales share,Cars,EV,2010,percent,0.004999999888241291
+Korea,Historical,EV sales share,Cars,EV,2011,percent,0.023000000044703484
+Korea,Historical,EV sales share,Cars,EV,2012,percent,0.04100000113248825
+Korea,Historical,EV sales share,Cars,EV,2013,percent,0.04800000041723251
+Korea,Historical,EV sales share,Cars,EV,2014,percent,0.09300000220537186
+Korea,Historical,EV sales share,Cars,EV,2015,percent,0.21699999272823334
+Korea,Historical,EV sales share,Cars,EV,2016,percent,0.328000009059906
+Korea,Historical,EV sales share,Cars,EV,2017,percent,0.9409999847412109
+Korea,Historical,EV sales share,Cars,EV,2018,percent,3.828000068664551
+Korea,Historical,EV sales share,Cars,EV,2019,percent,2.2739999294281006
+Korea,Historical,EV sales share,Cars,EV,2020,percent,2.8519999980926514
+Malaysia,Historical,EV sales share,Cars,EV,2012,percent,0.0020000000949949026
+Malaysia,Historical,EV sales share,Cars,EV,2014,percent,0.003000000026077032
+Malaysia,Historical,EV sales share,Cars,EV,2015,percent,0.006000000052154064
+Malaysia,Historical,EV sales share,Cars,EV,2016,percent,0.020999999716877937
+Malaysia,Historical,EV sales share,Cars,EV,2017,percent,1.5809999704360962
+Malaysia,Historical,EV sales share,Cars,EV,2018,percent,1.4809999465942383
+Malaysia,Historical,EV sales share,Cars,EV,2019,percent,0.029999999329447746
+Malaysia,Historical,EV sales share,Cars,EV,2020,percent,0.03500000014901161
+Mexico,Historical,EV sales share,Cars,EV,2012,percent,0.010999999940395355
+Mexico,Historical,EV sales share,Cars,EV,2013,percent,0.0010000000474974513
+Mexico,Historical,EV sales share,Cars,EV,2014,percent,0.004999999888241291
+Mexico,Historical,EV sales share,Cars,EV,2015,percent,0.00800000037997961
+Mexico,Historical,EV sales share,Cars,EV,2016,percent,0.0560000017285347
+Mexico,Historical,EV sales share,Cars,EV,2017,percent,0.09000000357627869
+Mexico,Historical,EV sales share,Cars,EV,2018,percent,0.1420000046491623
+Mexico,Historical,EV sales share,Cars,EV,2019,percent,0.06300000101327896
+Mexico,Historical,EV sales share,Cars,EV,2020,percent,0.25699999928474426
+Netherlands,Historical,EV sales share,Cars,EV,2010,percent,0.02500000037252903
+Netherlands,Historical,EV sales share,Cars,EV,2011,percent,0.1589999943971634
+Netherlands,Historical,EV sales share,Cars,EV,2012,percent,1.0260000228881836
+Netherlands,Historical,EV sales share,Cars,EV,2013,percent,5.390999794006348
+Netherlands,Historical,EV sales share,Cars,EV,2014,percent,3.875999927520752
+Netherlands,Historical,EV sales share,Cars,EV,2015,percent,9.795000076293945
+Netherlands,Historical,EV sales share,Cars,EV,2016,percent,5.965000152587891
+Netherlands,Historical,EV sales share,Cars,EV,2017,percent,2.5
+Netherlands,Historical,EV sales share,Cars,EV,2018,percent,6.290999889373779
+Netherlands,Historical,EV sales share,Cars,EV,2019,percent,15.151000022888184
+Netherlands,Historical,EV sales share,Cars,EV,2020,percent,25.027999877929688
+New Zealand,Historical,EV sales share,Cars,EV,2010,percent,0.006000000052154064
+New Zealand,Historical,EV sales share,Cars,EV,2011,percent,0.009999999776482582
+New Zealand,Historical,EV sales share,Cars,EV,2012,percent,0.017000000923871994
+New Zealand,Historical,EV sales share,Cars,EV,2013,percent,0.01899999938905239
+New Zealand,Historical,EV sales share,Cars,EV,2014,percent,0.14000000059604645
+New Zealand,Historical,EV sales share,Cars,EV,2015,percent,0.19900000095367432
+New Zealand,Historical,EV sales share,Cars,EV,2016,percent,0.5669999718666077
+New Zealand,Historical,EV sales share,Cars,EV,2017,percent,1.1699999570846558
+New Zealand,Historical,EV sales share,Cars,EV,2018,percent,1.9359999895095825
+New Zealand,Historical,EV sales share,Cars,EV,2019,percent,2.815999984741211
+New Zealand,Historical,EV sales share,Cars,EV,2020,percent,2.7690000534057617
+Norway,Historical,EV sales share,Cars,EV,2010,percent,0.7049999833106995
+Norway,Historical,EV sales share,Cars,EV,2011,percent,0.8939999938011169
+Norway,Historical,EV sales share,Cars,EV,2012,percent,3.2309999465942383
+Norway,Historical,EV sales share,Cars,EV,2013,percent,5.864999771118164
+Norway,Historical,EV sales share,Cars,EV,2014,percent,14.706999778747559
+Norway,Historical,EV sales share,Cars,EV,2015,percent,22.663999557495117
+Norway,Historical,EV sales share,Cars,EV,2016,percent,26.139999389648438
+Norway,Historical,EV sales share,Cars,EV,2017,percent,39.255001068115234
+Norway,Historical,EV sales share,Cars,EV,2018,percent,49.13800048828125
+Norway,Historical,EV sales share,Cars,EV,2019,percent,55.933998107910156
+Norway,Historical,EV sales share,Cars,EV,2020,percent,74.75199890136719
+Other Europe,Historical,EV sales share,Cars,EV,2011,percent,0.0430000014603138
+Other Europe,Historical,EV sales share,Cars,EV,2012,percent,0.09099999815225601
+Other Europe,Historical,EV sales share,Cars,EV,2013,percent,0.07599999755620956
+Other Europe,Historical,EV sales share,Cars,EV,2014,percent,0.18799999356269836
+Other Europe,Historical,EV sales share,Cars,EV,2015,percent,0.24300000071525574
+Other Europe,Historical,EV sales share,Cars,EV,2016,percent,0.33799999952316284
+Other Europe,Historical,EV sales share,Cars,EV,2017,percent,0.5450000166893005
+Other Europe,Historical,EV sales share,Cars,EV,2018,percent,0.8029999732971191
+Other Europe,Historical,EV sales share,Cars,EV,2019,percent,1.2569999694824219
+Other Europe,Historical,EV sales share,Cars,EV,2020,percent,2.5980000495910645
+Poland,Historical,EV sales share,Cars,EV,2010,percent,0.0020000000949949026
+Poland,Historical,EV sales share,Cars,EV,2011,percent,0.004999999888241291
+Poland,Historical,EV sales share,Cars,EV,2012,percent,0.004999999888241291
+Poland,Historical,EV sales share,Cars,EV,2013,percent,0.004999999888241291
+Poland,Historical,EV sales share,Cars,EV,2014,percent,0.017999999225139618
+Poland,Historical,EV sales share,Cars,EV,2015,percent,0.028999999165534973
+Poland,Historical,EV sales share,Cars,EV,2016,percent,0.052000001072883606
+Poland,Historical,EV sales share,Cars,EV,2017,percent,0.11800000071525574
+Poland,Historical,EV sales share,Cars,EV,2018,percent,0.14300000667572021
+Poland,Historical,EV sales share,Cars,EV,2019,percent,0.27799999713897705
+Poland,Historical,EV sales share,Cars,EV,2020,percent,0.8230000138282776
+Portugal,Historical,EV sales share,Cars,EV,2010,percent,0.32199999690055847
+Portugal,Historical,EV sales share,Cars,EV,2011,percent,0.12300000339746475
+Portugal,Historical,EV sales share,Cars,EV,2012,percent,0.054999999701976776
+Portugal,Historical,EV sales share,Cars,EV,2013,percent,0.1679999977350235
+Portugal,Historical,EV sales share,Cars,EV,2014,percent,0.14100000262260437
+Portugal,Historical,EV sales share,Cars,EV,2015,percent,0.5619999766349792
+Portugal,Historical,EV sales share,Cars,EV,2016,percent,0.7979999780654907
+Portugal,Historical,EV sales share,Cars,EV,2017,percent,1.8919999599456787
+Portugal,Historical,EV sales share,Cars,EV,2018,percent,3.6519999504089355
+Portugal,Historical,EV sales share,Cars,EV,2019,percent,5.665999889373779
+Portugal,Historical,EV sales share,Cars,EV,2020,percent,13.75
+South Africa,Historical,EV sales share,Cars,EV,2013,percent,0.00800000037997961
+South Africa,Historical,EV sales share,Cars,EV,2014,percent,0.003000000026077032
+South Africa,Historical,EV sales share,Cars,EV,2015,percent,0.057999998331069946
+South Africa,Historical,EV sales share,Cars,EV,2016,percent,0.10400000214576721
+South Africa,Historical,EV sales share,Cars,EV,2017,percent,0.05299999937415123
+South Africa,Historical,EV sales share,Cars,EV,2018,percent,0.03999999910593033
+South Africa,Historical,EV sales share,Cars,EV,2019,percent,0.06400000303983688
+South Africa,Historical,EV sales share,Cars,EV,2020,percent,0.054999999701976776
+Spain,Historical,EV sales share,Cars,EV,2010,percent,0.00800000037997961
+Spain,Historical,EV sales share,Cars,EV,2011,percent,0.04800000041723251
+Spain,Historical,EV sales share,Cars,EV,2012,percent,0.061000000685453415
+Spain,Historical,EV sales share,Cars,EV,2013,percent,0.12200000137090683
+Spain,Historical,EV sales share,Cars,EV,2014,percent,0.20200000703334808
+Spain,Historical,EV sales share,Cars,EV,2015,percent,0.20499999821186066
+Spain,Historical,EV sales share,Cars,EV,2016,percent,0.3059999942779541
+Spain,Historical,EV sales share,Cars,EV,2017,percent,0.6010000109672546
+Spain,Historical,EV sales share,Cars,EV,2018,percent,0.8769999742507935
+Spain,Historical,EV sales share,Cars,EV,2019,percent,1.378000020980835
+Spain,Historical,EV sales share,Cars,EV,2020,percent,4.96999979019165
+Sweden,Historical,EV sales share,Cars,EV,2010,percent,0.0010000000474974513
+Sweden,Historical,EV sales share,Cars,EV,2011,percent,0.05400000140070915
+Sweden,Historical,EV sales share,Cars,EV,2012,percent,0.30799999833106995
+Sweden,Historical,EV sales share,Cars,EV,2013,percent,0.5289999842643738
+Sweden,Historical,EV sales share,Cars,EV,2014,percent,1.440000057220459
+Sweden,Historical,EV sales share,Cars,EV,2015,percent,2.372999906539917
+Sweden,Historical,EV sales share,Cars,EV,2016,percent,3.4089999198913574
+Sweden,Historical,EV sales share,Cars,EV,2017,percent,5.089000225067139
+Sweden,Historical,EV sales share,Cars,EV,2018,percent,7.566999912261963
+Sweden,Historical,EV sales share,Cars,EV,2019,percent,11.432000160217285
+Sweden,Historical,EV sales share,Cars,EV,2020,percent,32.268001556396484
+Switzerland,Historical,EV sales share,Cars,EV,2010,percent,0.04699999839067459
+Switzerland,Historical,EV sales share,Cars,EV,2011,percent,0.1379999965429306
+Switzerland,Historical,EV sales share,Cars,EV,2012,percent,0.22599999606609344
+Switzerland,Historical,EV sales share,Cars,EV,2013,percent,0.4320000112056732
+Switzerland,Historical,EV sales share,Cars,EV,2014,percent,0.9639999866485596
+Switzerland,Historical,EV sales share,Cars,EV,2015,percent,1.7489999532699585
+Switzerland,Historical,EV sales share,Cars,EV,2016,percent,1.940999984741211
+Switzerland,Historical,EV sales share,Cars,EV,2017,percent,2.697999954223633
+Switzerland,Historical,EV sales share,Cars,EV,2018,percent,3.1689999103546143
+Switzerland,Historical,EV sales share,Cars,EV,2019,percent,5.610000133514404
+Switzerland,Historical,EV sales share,Cars,EV,2020,percent,14.26200008392334
+Thailand,Historical,EV sales share,Cars,EV,2011,percent,0.0010000000474974513
+Thailand,Historical,EV sales share,Cars,EV,2012,percent,0.0010000000474974513
+Thailand,Historical,EV sales share,Cars,EV,2013,percent,0.0010000000474974513
+Thailand,Historical,EV sales share,Cars,EV,2014,percent,0.00800000037997961
+Thailand,Historical,EV sales share,Cars,EV,2015,percent,0.004999999888241291
+Thailand,Historical,EV sales share,Cars,EV,2016,percent,0.004999999888241291
+Thailand,Historical,EV sales share,Cars,EV,2017,percent,0.017999999225139618
+Thailand,Historical,EV sales share,Cars,EV,2018,percent,0.8730000257492065
+Thailand,Historical,EV sales share,Cars,EV,2019,percent,1.0190000534057617
+Thailand,Historical,EV sales share,Cars,EV,2020,percent,1.0360000133514404
+United Kingdom,Historical,EV sales share,Cars,EV,2010,percent,0.014000000432133675
+United Kingdom,Historical,EV sales share,Cars,EV,2011,percent,0.06300000101327896
+United Kingdom,Historical,EV sales share,Cars,EV,2012,percent,0.13199999928474426
+United Kingdom,Historical,EV sales share,Cars,EV,2013,percent,0.16500000655651093
+United Kingdom,Historical,EV sales share,Cars,EV,2014,percent,0.5920000076293945
+United Kingdom,Historical,EV sales share,Cars,EV,2015,percent,1.1019999980926514
+United Kingdom,Historical,EV sales share,Cars,EV,2016,percent,1.3880000114440918
+United Kingdom,Historical,EV sales share,Cars,EV,2017,percent,1.8259999752044678
+United Kingdom,Historical,EV sales share,Cars,EV,2018,percent,2.0829999446868896
+United Kingdom,Historical,EV sales share,Cars,EV,2019,percent,3.1419999599456787
+United Kingdom,Historical,EV sales share,Cars,EV,2020,percent,11.281999588012695
+USA,Historical,EV sales share,Cars,EV,2010,percent,0.010999999940395355
+USA,Historical,EV sales share,Cars,EV,2011,percent,0.16899999976158142
+USA,Historical,EV sales share,Cars,EV,2012,percent,0.40700000524520874
+USA,Historical,EV sales share,Cars,EV,2013,percent,0.7369999885559082
+USA,Historical,EV sales share,Cars,EV,2014,percent,0.890999972820282
+USA,Historical,EV sales share,Cars,EV,2015,percent,0.7850000262260437
+USA,Historical,EV sales share,Cars,EV,2016,percent,1.0199999809265137
+USA,Historical,EV sales share,Cars,EV,2017,percent,1.1619999408721924
+USA,Historical,EV sales share,Cars,EV,2018,percent,1.9730000495910645
+USA,Historical,EV sales share,Cars,EV,2019,percent,1.7430000305175781
+USA,Historical,EV sales share,Cars,EV,2020,percent,2.0409998893737793
+World,Historical,EV sales share,Cars,EV,2010,percent,0.014999999664723873
+World,Historical,EV sales share,Cars,EV,2011,percent,0.08500000089406967
+World,Historical,EV sales share,Cars,EV,2012,percent,0.19300000369548798
+World,Historical,EV sales share,Cars,EV,2013,percent,0.3199999928474426
+World,Historical,EV sales share,Cars,EV,2014,percent,0.492000013589859
+World,Historical,EV sales share,Cars,EV,2015,percent,0.7820000052452087
+World,Historical,EV sales share,Cars,EV,2016,percent,1.0019999742507935
+World,Historical,EV sales share,Cars,EV,2017,percent,1.4980000257492065
+World,Historical,EV sales share,Cars,EV,2018,percent,2.5329999923706055
+World,Historical,EV sales share,Cars,EV,2019,percent,2.7320001125335693
+World,Historical,EV sales share,Cars,EV,2020,percent,4.611999988555908
