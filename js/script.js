@@ -392,9 +392,20 @@ function switchToScene3(){
 
         }
 
+        //filter only actual data points
+        var actDateFilt = new Date(2020, 1,1)
+        console.log(actDateFilt)
+        var subsetActData = projDataset.filter(function (d) {
+            return d.year <  actDateFilt
+        })
+            // var subProjData = projDataset.filter(function (d) {
+            //     return d.year >= actDateFilt
+            // })
 
+        var subActGrouped = groupByCountry(subsetActData);
+        var subProjGrouped = groupByCountry(projDataset);
+        //plot US vs. Norway
 
-        var projGrouped = groupByCountry(projDataset);
         drawAxes(projDataset);
         var lineGen = d3.line()
             .x(function (d) {
@@ -409,8 +420,8 @@ function switchToScene3(){
 
         // create the line graph
 
-        console.log(projGrouped[0]);
-        projGrouped.forEach(function (d, i) {
+        console.log(subActGrouped[0]);
+        subActGrouped.forEach(function (d, i) {
 
 
             var pathData1 = lineGen(d.values);
@@ -438,20 +449,69 @@ function switchToScene3(){
                 .on('mouseout', function () {
                     tooltip.html('')
                 })
+
+
+
+
+
             vis.selectAll('myCircles')
                 .data(projDataset)
                 .enter()
                 .append('circle')
-                .attr("fill","red")
+                .attr("fill","lightgrey")
                 .attr("stroke", "none")
                 .attr("cx", function (d){return xScale(formatYear(d.year))})
                 .attr("cy", function (d){return yScale(d.value)})
                 .attr("r", 3)
+                .on('mouseover', function (d) {
+                    // console.log(d)
+                    tooltip.transition().duration(200)
+                        .style('opacity', .9)
+                    tooltip.html(
+                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.value + '</div>'
+                    )
+                        .style('left', (d3.event.pageX - 35) + 'px')
+                        .style('top', (d3.event.pageY - 30) + 'px')
+                })
+                .on('mouseout', function () {
+                    tooltip.html('')
+
+                })
+
+        })
+        //create plot of projected data
+        subProjGrouped.forEach(function (d, i) {
+            var pathData2 = lineGen(d.values);
+            vis.append('path')
+                .attr('d', pathData2)
+                .attr('class', 'line')
+                .attr('id', 'line_' + d.key)
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', 4)
+                .attr('stroke', function (d, j) {
+                    return color(i)
+                })
+                .attr("fill", "none")
+
+                //create hover tooltip
+                .on('mouseover', function () {
+                    // console.log(d)
+                    tooltip.transition().duration(200)
+                        .style('opacity', .9)
+                    tooltip.html(
+                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.key + '</div>'
+                    )
+                        .style('left', (d3.event.pageX - 35) + 'px')
+                        .style('top', (d3.event.pageY - 30) + 'px')
+                })
+                .on('mouseout', function () {
+                    tooltip.html('')
+                })
+
 
 
 
         })
-
 
 
 
