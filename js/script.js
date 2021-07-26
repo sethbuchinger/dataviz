@@ -64,6 +64,8 @@ var vis
 var color
 
 
+
+
 var tooltip = d3.select('body')
     .append('div')
     .style('position', 'absolute')
@@ -72,7 +74,75 @@ var tooltip = d3.select('body')
     .style('opacity', 0)
 //import csv
 
+var idScene1 = document.getElementById('scene_1');
+var idScene2 = document.getElementById('scene_2');
+var idScene3 = document.getElementById('scene_3');
+var idSlider = document.getElementById('slider');
+
+
+
+function drawLegend(dataGroup){
+
+    //initialize legend
+    var legendItemSize = 8;
+    var legendSpacing = 4;
+    var xOffset = 150;
+    var yOffset = 0;
+    var legend = d3.select('#legend').append('svg')
+        .selectAll('.legendItem')
+        .data(dataGroup);
+
+    color = d3.scaleLinear()
+        .domain([0, 2, 4, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30, 32, 34])
+        .range(["red", "palegreen", "yellow", "blue", "aqua", "coral", "darkviolet", "seagreen", "skyblue", "peachpuff", "royalblue", "magenta", "navy", "olive", "orchid"])
+
+    //create legend items
+    legend.enter()
+        .append('text')
+        .attr('x', xOffset + legendItemSize +5)
+        .attr('y', (d,i) => yOffset + (legendItemSize + legendSpacing) * i +12)
+        .text(d=>d.key);
+
+
+        legend.enter().append('rect')
+            .attr('class', 'legendItem')
+            .attr('width', legendItemSize)
+            //.attr('id', 'legendItem_', + d.key);
+            .attr('height', legendItemSize)
+            .attr('fill', function (d, i) {
+                return color(i)
+            })
+            .attr('transform',
+                (d, i) => {
+                    var x = xOffset;
+                    var y = yOffset + (legendItemSize + legendSpacing) * i;
+                    return `translate(${x}, ${y})`;
+                });
+
+
+
+
+
+
+
+
+}
+
+
+
+
 function switchToScene1() {
+
+    //load dive elements
+        d3.selectAll("path").remove();
+        d3.select('#visualisation').selectAll("circle").remove()
+        idScene1.style.display = 'block';
+        idScene2.style.display = 'none';
+        idSlider.style.display = 'block';
+        idScene3.style.display = 'none';
+
+
+    //load in scene 1 data
     d3.csv('js/data/IEA-EV-dataEV sales shareCarsHistorical.csv', function (data) {
         parseDate = d3.timeParse("%Y")
         data.forEach(function (d) {
@@ -83,8 +153,12 @@ function switchToScene1() {
 
         //console.log(JSON.stringify(dataGroup))
         dataset = data;
-        groupByCountry(dataset);
+       var groupedData = groupByCountry(dataset);
+        drawLegend(groupedData);
         drawAxes(dataset)
+
+
+
 
     });
 
@@ -98,7 +172,6 @@ function switchToScene1() {
             })
             .entries(data);
 
-        console.log('Passed group by countyr')
     }
     function drawAxes(data){
         // set vars: dimensions and margins of the graph
@@ -139,9 +212,11 @@ function switchToScene1() {
                 .scale(xScale)
                 .ticks(xTicks, "");
 
+   
         yAxis = d3.axisLeft()
             .scale(yScale)
-            .ticks(yTicks);
+            .ticks(yTicks)
+            .tickFormat(d => d + "%");
 
         // create our axes
         vis.append("svg:g")
@@ -185,7 +260,6 @@ function switchToScene1() {
         //nest the data
 
 
-
         var lineGen = d3.line()
             .x(function (d) {
                 return xScale(formatYear(d.year));
@@ -211,13 +285,14 @@ function switchToScene1() {
                 })
                 .attr("fill", "none")
 
+
                 //create hover tooltip
                 .on('mouseover', function () {
                     // console.log(d)
                     tooltip.transition().duration(200)
                         .style('opacity', .9)
                     tooltip.html(
-                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.key +'</div>'
+                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.key + '</div>'
                     )
                         .style('left', (d3.event.pageX - 35) + 'px')
                         .style('top', (d3.event.pageY - 30) + 'px')
@@ -225,14 +300,13 @@ function switchToScene1() {
                 .on('mouseout', function () {
                     tooltip.html('')
                 })
+
+
         });
+
 
     }
 
-function removeData(){
-
-
-}
 function update(h) {
     handle.attr("cx", x(h));
     label
@@ -250,27 +324,21 @@ function update(h) {
 
 function switchToScene2(){
 
-    var idScene2 = document.getElementById('scene_2');
-    var idScene1 = document.getElementById('scene_1');
-    var idSlider = document.getElementById('slider');
-    var idViz = document.getElementById('visualisation')
+    d3.selectAll("path").remove();
+    d3.select('#visualisation').selectAll("circle").remove()
+    d3.select('#visualisation').selectAll("g").remove()
+    idScene1.style.display = 'none';
+    idScene2.style.display = 'block';
+    idSlider.style.display = 'none';
+    idScene3.style.display = 'none';
 
 
-    if (idScene2.style.display === 'none') {
-        idScene2.style.display = 'block';
-        idScene1.style.display = 'none';
-        idSlider.style.display = 'none';
-        d3.selectAll("path").remove();
-    } else {
-        idScene2.style.display = 'none';
-
-    }
     //plot US vs. Norway
     var subsetData = dataset.filter(function (d) {
         return d.region === 'Norway'|| d.region === 'USA' || d.region ==='World';
     })
 
-
+    drawAxes(subsetData);
     drawPlot(subsetData);
     addAnnotations();
 
@@ -365,8 +433,17 @@ function addAnnotations() {
 }
 
 
-function switchToScene3(){
-    d3.csv('js/data/IEA-EV-dataEV sales shareCarsProjection-Combined.csv',function(data) {
+function switchToScene3() {
+
+    d3.selectAll("path").remove();
+    d3.select('#visualisation').selectAll("circle").remove()
+    d3.select('#visualisation').selectAll("g").remove()
+    idScene1.style.display = 'none';
+    idScene2.style.display = 'none';
+    idSlider.style.display = 'none';
+    idScene3.style.display = 'block';
+
+    d3.csv('js/data/IEA-EV-dataEV sales shareCarsProjection-Combined.csv', function (data) {
         parseDate = d3.timeParse("%Y")
         data.forEach(function (d) {
             d.value = +d.value;
@@ -374,33 +451,16 @@ function switchToScene3(){
             d.year = new Date(+d.year, 0, 1)
         });
         projDataset = data;
-        console.log(projDataset[0])
-
-        var idScene3 = document.getElementById('scene_3');
-        var idScene1 = document.getElementById('scene_1');
-        var idSlider = document.getElementById('slider');
-        var idViz = document.getElementById('visualisation')
-
-
-        if (idScene3.style.display === 'none') {
-            idScene3.style.display = 'block';
-            idScene1.style.display = 'none';
-            idSlider.style.display = 'none';
-            d3.selectAll("path").remove();
-        } else {
-            idScene3.style.display = 'none';
-
-        }
 
         //filter only actual data points
-        var actDateFilt = new Date(2020, 1,1)
+        var actDateFilt = new Date(2020, 1, 1)
         console.log(actDateFilt)
         var subsetActData = projDataset.filter(function (d) {
-            return d.year <  actDateFilt
+            return d.year < actDateFilt
         })
-            // var subProjData = projDataset.filter(function (d) {
-            //     return d.year >= actDateFilt
-            // })
+        // var subProjData = projDataset.filter(function (d) {
+        //     return d.year >= actDateFilt
+        // })
 
         var subActGrouped = groupByCountry(subsetActData);
         var subProjGrouped = groupByCountry(projDataset);
@@ -416,7 +476,7 @@ function switchToScene3(){
             })
 
 
-            //.curve(d3.curveBasis);
+        //.curve(d3.curveBasis);
 
         // create the line graph
 
@@ -451,17 +511,18 @@ function switchToScene3(){
                 })
 
 
-
-
-
             vis.selectAll('myCircles')
                 .data(projDataset)
                 .enter()
                 .append('circle')
-                .attr("fill","lightgrey")
+                .attr("fill", "lightgrey")
                 .attr("stroke", "none")
-                .attr("cx", function (d){return xScale(formatYear(d.year))})
-                .attr("cy", function (d){return yScale(d.value)})
+                .attr("cx", function (d) {
+                    return xScale(formatYear(d.year))
+                })
+                .attr("cy", function (d) {
+                    return yScale(d.value)
+                })
                 .attr("r", 3)
                 .on('mouseover', function (d) {
                     // console.log(d)
@@ -509,13 +570,7 @@ function switchToScene3(){
                 })
 
 
-
-
         })
-
-
-
-
 
 
     })

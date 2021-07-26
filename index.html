@@ -20,6 +20,12 @@
         .x.axis {
 
         }
+        #legend svg{
+            height: 500px;
+            float:right;
+            font-size: 10px;
+
+        }
 
         #scene a, #scene a:visited{
 
@@ -86,7 +92,7 @@
     </style>
 </head>
 
-<body>
+<body onload="switchToScene1()">
 <div id="scene">
     <a onclick ="switchToScene1()">1</a>
     <a onclick="switchToScene2()">2</a>
@@ -115,7 +121,11 @@
 
 
 </div>
-<svg id="visualisation" width="960" height="500"></svg>
+<div id="legend"></div>
+<svg id="visualisation" width="960" height="500">
+
+</svg>
+
 <div id = "slider"></div>
 <script src="js/script.js"></script>
 </body>
