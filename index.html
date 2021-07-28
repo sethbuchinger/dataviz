@@ -21,9 +21,16 @@
 
         }
         #legend svg{
-            height: 500px;
             float:right;
-            font-size: 10px;
+            margin-left: 1000px;
+            height: 500px;
+            font-size: 12px;
+            position: fixed;
+
+        }
+
+        #slider svg{
+            float:left;
 
         }
 
@@ -127,5 +134,13 @@
 </svg>
 
 <div id = "slider"></div>
+<div id="checkbox1" style="float: left; margin-left: 900px; position: fixed; display:none">
+    <label for="model1">STEPS<input type="checkbox" id="STEPS" name="model1" value="Model1" onchange="plotSTEPS(this)"></label>
+</div>
+<div id="checkbox2" style="float: left; margin-left: 1000px; position: fixed; display:none">
+    <label for="model2">SDS<input type="checkbox" id="SDS" name="model1" value="Model1" onchange="plotSDS(this)"></label>
+</div>
+
 <script src="js/script.js"></script>
+
 </body>
