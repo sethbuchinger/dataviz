@@ -151,6 +151,8 @@ function switchToScene1() {
         idScene2.style.display = 'none';
         idSlider.style.display = 'block';
         idScene3.style.display = 'none';
+    idCheckbox1.style.display = 'none';
+    idCheckbox2.style.display = 'none';
 
 
     //load in scene 1 data
@@ -386,6 +388,8 @@ function switchToScene2(){
     idScene2.style.display = 'block';
     idSlider.style.display = 'none';
     idScene3.style.display = 'none';
+    idCheckbox1.style.display = 'none';
+    idCheckbox2.style.display = 'none';
 
 
     //plot US vs. Norway
