@@ -139,9 +139,13 @@ function drawLegend(dataGroup,colors){
 
 function switchToScene1() {
 
+
+
     //load dive elements
         d3.selectAll("path").remove();
         d3.select('#visualisation').selectAll("circle").remove()
+    d3.select('#visualisation').selectAll("g").remove()
+    d3.select('#visualisation').selectAll("line").remove()
         d3.select('#legend').selectAll("svg").remove()
         idScene1.style.display = 'block';
         idScene2.style.display = 'none';
@@ -615,8 +619,8 @@ function plotSubProjGrouped() {
             .attr('d', pathData2)
             .attr('class', 'line')
             .attr('id', 'line_' + d.key)
-            .attr('stroke-width', 2)
-            .attr('stroke-dasharray', 4)
+            .attr('stroke-width', 3)
+            .attr('stroke-dasharray', 10)
             .attr('stroke', function (d, j) {
                 return color(i)
             })
@@ -802,8 +806,8 @@ function plotSubProjSDSGrouped()
                 .attr('d', pathData2)
                 .attr('class', 'line')
                 .attr('id', 'line_' + d.key)
-                .attr('stroke-width', 2)
-                .attr('stroke-dasharray', 4)
+                .attr('stroke-width', 1)
+                .attr('stroke-dasharray', 3)
                 .attr('stroke', function (d, j) {
                     return color(i)
                 })
