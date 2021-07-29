@@ -153,6 +153,7 @@ function switchToScene1() {
     d3.select('#visualisation').selectAll("g").remove()
     d3.select('#visualisation').selectAll("line").remove()
         d3.select('#legend').selectAll("svg").remove()
+    d3.selectAll('#arrowTextBox').remove()
         idScene1.style.display = 'block';
         idScene2.style.display = 'none';
         idSlider.style.display = 'block';
@@ -390,6 +391,8 @@ function switchToScene2(){
     d3.select('#visualisation').selectAll("circle").remove()
     d3.select('#visualisation').selectAll("g").remove()
     d3.select('#legend').selectAll("svg").remove()
+    d3.selectAll('#arrowTextBox').remove()
+    d3.select('#visualisation').selectAll("line").remove()
     idScene1.style.display = 'none';
     idScene2.style.display = 'block';
     idSlider.style.display = 'none';
@@ -418,7 +421,7 @@ function switchToScene2(){
     drawPlot(subsetData,2000,colors);
     drawLegend(groupedData,colors);
     axesLabels();
-    addAnnotations();
+    addAnnotations(subsetData);
 
 
 
@@ -427,88 +430,119 @@ function switchToScene2(){
 
 function addAnnotations() {
 
-    var circleTooltip = d3.select('body')
-        .append('div')
-        .style('position', 'absolute')
-        .style('padding', '0 10px')
-        .style('background', 'gainsboro')
-        .style('opacity', 0)
+    d3.csv('js/data/annotations.csv', function (data) {
+        parseDate = d3.timeParse("%Y")
+        data.forEach(function (d) {
+            d.year = new Date(+d.year, 0, 1)
+            d.value = +d.value;
+        });
 
-    var lineTooltip = d3.select('body').append('div')
-        .style('border-left', '2px dotted slategray')
-        .style('position', 'absolute')
-        .style('color', 'black')
+        var annotationData = data;
+        var circleTooltip = d3.select('body')
+            .append('div')
+            .style('position', 'absolute')
+            .style('padding', '0 10px')
+            .style('background', 'gainsboro')
+            .style('opacity', 0)
 
+        var lineTooltip = d3.select('body').append('div')
+            .style('border-left', '2px dotted slategray')
+            .style('position', 'absolute')
+            .style('color', 'black')
+
+        //var groupedAnnData = groupByCountry(annotationData);
+
+        console.log(annotationData)
+        /*  vis.selectAll('myCircles')
+              .data(projDataset)
+              .enter()
+              .append('circle')
+              .attr("fill", "lightgrey")
+              .attr("stroke", "none")
+              .attr("cx", function (d) {
+                  return xScale(formatYear(d.year))
+              })
+              .attr("cy", function (d) {
+                  return yScale(d.value)
+              })
+              .attr("r", 3)*/
 //1st annotation
-    d3.select("#visualisation").append("circle")
-        .attr("cx", 120)
-        .attr("cy", 433)
-        .attr('r', 5)
-        .style("fill", "orange")
-        .on('mouseover', function () {
+        vis.selectAll('myCircles')
+            .data(annotationData)
+            .enter()
+            .append('circle')
+            .attr("fill", "lightgrey")
+            .attr("stroke", "none")
+            .attr("cx", function (d) {
+                return xScale(formatYear(d.year))
+            })
+            .attr("cy", function (d) {
+                return yScale(d.value)
+            })
+                .attr('r', 5)
+                .style("fill", "orange")
+                .on('mouseover', function (d) {
 
-            circleTooltip.transition().duration(200)
-                .style('opacity', .9)
-            circleTooltip.html(
-                '<div style="font-family:Verdana; font-size: 12px; ">' +
-                '<strong>Pre-2010 Measures</strong>'+'<ul><li>Exemption from import tax</li><li>Reduced registration tax</li>' +
-                '<li>Exemption from toll roads</li></ul>'+'</div>'
-
-            )
-
-                .style('left', (d3.event.pageX - 50) + 'px')
-                .style('top', (d3.event.pageY - 200) + 'px')
-
-
-
-            lineTooltip.html(
-                '<div style = "">'+'<br><br><br><br><br><br>'+ '</div>'
-
-            )
-                .style('left', (d3.event.pageX - 0) + 'px')
-                .style('top', (d3.event.pageY - 120) + 'px')
-
-        })
-        .on('mouseout', function () {
-            circleTooltip.html('')
-            lineTooltip.html('')
-        })
-
-    //2nd annotation
-
-    d3.select("#visualisation").append("circle")
-        .attr("cx", 200)
-        .attr("cy", 427)
-        .attr('r', 5)
-        .style("fill", "orange")
-        .on('mouseover', function () {
-
-            circleTooltip.transition().duration(200)
-                .style('opacity', .9)
-            circleTooltip.html(
-                '<div style="font-family:Verdana; font-size: 10px; ">' +
-                '<strong>New EV Options Launched in Norway</strong>'+'<ul><li>Mitsubishi i-MiEV</li>' +
-                '<li>Nissan Leaf</li></ul>'+'</div>'
-
-            )
-                .style('left', (d3.event.pageX - 50) + 'px')
-                .style('top', (d3.event.pageY - 200) + 'px')
+                    circleTooltip.transition().duration(200)
+                        .style('opacity', .9)
+                    circleTooltip.html(
+                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.annotation +'</div>'
+                    )
 
 
+                        .style('left', (d3.event.pageX - 50) + 'px')
+                        .style('top', (d3.event.pageY - 200) + 'px')
 
-            lineTooltip.html(
-                '<div style = "">'+'<br><br><br><br><br><br>'+ '</div>'
 
-            )
-                .style('left', (d3.event.pageX - 0) + 'px')
-                .style('top', (d3.event.pageY - 120) + 'px')
+                    lineTooltip.html(
+                        '<div style = "">' + '<br><br><br><br><br><br>' + '</div>'
+                    )
+                        .style('left', (d3.event.pageX - 0) + 'px')
+                        .style('top', (d3.event.pageY - 120) + 'px')
 
-        })
-        .on('mouseout', function () {
-            circleTooltip.html('')
-            lineTooltip.html('')
-        })
-}
+                })
+                .on('mouseout', function () {
+                    circleTooltip.html('')
+                    lineTooltip.html('')
+                })
+    })
+        }
+            //2nd annotation
+
+            /*  d3.select("#visualisation").append("circle")
+                  .attr("cx", 200)
+                  .attr("cy", 427)
+                  .attr('r', 5)
+                  .style("fill", "orange")
+                  .on('mouseover', function () {
+
+                      circleTooltip.transition().duration(200)
+                          .style('opacity', .9)
+                      circleTooltip.html(
+                          '<div style="font-family:Verdana; font-size: 10px; ">' +
+                          '<strong>New EV Options Launched in Norway</strong>'+'<ul><li>Mitsubishi i-MiEV</li>' +
+                          '<li>Nissan Leaf</li></ul>'+'</div>'
+
+                      )
+                          .style('left', (d3.event.pageX - ) + 'px')
+                          .style('top', (d3.event.pageY - 200) + 'px')
+
+
+
+                      lineTooltip.html(
+                          '<div style = "">'+'<br><br><br><br><br><br>'+ '</div>'
+
+                      )
+                          .style('left', (d3.event.pageX - 0) + 'px')
+                          .style('top', (d3.event.pageY - 120) + 'px')
+
+                  })
+                  .on('mouseout', function () {
+                      circleTooltip.html('')
+                      lineTooltip.html('')
+                  })*/
+
+
 
 
 
@@ -520,12 +554,15 @@ function switchToScene3() {
     d3.select('#legend').selectAll("svg").remove()
     d3.select('#SDSTooltip').remove();
     d3.select('#STEPSTooltip').remove();
+
     idScene1.style.display = 'none';
     idScene2.style.display = 'none';
     idSlider.style.display = 'none';
     idScene3.style.display = 'block';
     idCheckbox1.style.display = 'block';
     idCheckbox2.style.display = 'block';
+
+    plotArrowText();
 
     d3.csv('js/data/IEA-EV-dataEV sales shareCarsProjection-CombinedSTEPS.csv', function (data) {
         parseDate = d3.timeParse("%Y")
@@ -562,6 +599,7 @@ function switchToScene3() {
         drawAxes(projDataset, 80);
         plotSubActGrouped();
         drawLegend(subProjGrouped,colors);
+
 
 
         /*     var checkbox1 = d3.select('body')
@@ -744,6 +782,14 @@ function plotSubActGrouped() {
             .on('mouseout', function () {
                 tooltip.html('')
             })
+            .attr("stroke-dasharray", function (){
+                return pathLength = this.getTotalLength();
+            })
+            .attr("stroke-dashoffset",pathLength)
+            .transition()
+            .ease(d3.easeLinear)
+            .duration(2000)
+            .attr("stroke-dashoffset", 0)
 
 
         vis.selectAll('myCircles')
@@ -773,6 +819,10 @@ function plotSubActGrouped() {
                 tooltip.html('')
 
             })
+            .transition()
+            .ease(d3.easeLinear)
+            .duration(2000)
+
 
         var projThresh = new Date(2020, 0, 1);
 
@@ -787,9 +837,28 @@ function plotSubActGrouped() {
             .style("fill", "none");
 
 
+
+
+
     })
 }
 
+function plotArrowText(){
+    var arrowTextBox = d3.select('body')
+        .append('div')
+        .attr('id', 'arrowTextBox')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('opacity', 50)
+
+
+    arrowTextBox.html(
+        '<div style="font-family:Verdana; font-size: 24px;">' +
+        '<p style="color: darkgray">&#x27F8&nbspHistorical&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp&nbsp&nbspProjected&nbsp&#x27F9</p>'
+    )
+        .style('left', '530px')
+        .style('top', '10px')
+}
 function plotSDS(checkboxElem) {
     if (checkboxElem.checked) {
         plotSubProjSDSGrouped()
