@@ -1,5 +1,5 @@
 var HEIGHT,WIDTH,MARGINS
-
+var vis
 var dataset;
 var projDataset;
 var subActGrouped;
@@ -7,16 +7,17 @@ var subProjGrouped;
 var subsetActData;
 var projSDSDataset;
 var subProjSDSGrouped;
+var sliderLine;
 // slider
-var sMargin = {top:0, right:50, bottom:0, left:50},
-    sWidth = 960 - sMargin.left - sMargin.right,
-    sHeight = 200 - sMargin.top - sMargin.bottom;
+var sMargin = {top:0, right:50, bottom:0, left:365},
+    sWidth = 750
+    sHeight = 100- sMargin.top - sMargin.bottom;
 
 var formatDateIntoYear = d3.timeFormat("%Y");
 
 
-var startDate = new Date("2010");
-var endDate = new Date ( "2020")
+var startDate = new Date (2010, 1, 1);
+var endDate = new Date ( 2020, 1, 1)
 
 var svgSlider = d3.select("#slider")
     .append("svg")
@@ -49,9 +50,10 @@ slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
     .attr("transform", "translate(0," + 18 + ")")
     .selectAll("text")
-    .data(x.ticks(10))
+    .data(x.ticks(11))
     .enter()
     .append("text")
+    .attr("font-size",'10px')
     .attr("x", x)
     .attr("y", 10)
     .attr("text-anchor", "middle")
@@ -60,16 +62,20 @@ slider.insert("g", ".track-overlay")
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
     .attr("r", 9)
-    .attr("cx",860)
+    .attr("cx",450)
+
+
+
 
 var label = slider.append("text")
     .attr("class", "label")
     .attr("text-anchor", "middle")
-    .text(formatDateIntoYear(startDate))
-    .attr("transform", "translate(0," + (-25) + ")")
+    .attr("font-size",'12px')
+    .text("Year Selector")
+    .attr("transform", "translate(0," + (50) + ")")
 
 
-var vis
+
 var color
 
 
@@ -249,6 +255,7 @@ function switchToScene1() {
             .call(yAxis);
 
 
+
         // gridlines in y axis function
         function make_y_gridlines() {
             return d3.axisLeft(yScale)
@@ -302,7 +309,7 @@ function switchToScene1() {
                 //.select('path').transition().duration(20)
                 .attr('stroke-width', 2)
                 .attr('stroke', function (d, j) {
-                    return colors(i)
+                    return color(i)
                 })
                 .attr("fill", "none")
 
@@ -349,7 +356,6 @@ function update(h) {
     label
         .attr("x", x(h))
         .text(formatDateIntoYear(h));
-
     var newData = dataset.filter(function (d) {
         console.log(h)
         return d.year < h;
@@ -512,6 +518,8 @@ function switchToScene3() {
     d3.select('#visualisation').selectAll("circle").remove()
     d3.select('#visualisation').selectAll("g").remove()
     d3.select('#legend').selectAll("svg").remove()
+    d3.select('#SDSTooltip').remove();
+    d3.select('#STEPSTooltip').remove();
     idScene1.style.display = 'none';
     idScene2.style.display = 'none';
     idSlider.style.display = 'none';
@@ -541,10 +549,19 @@ function switchToScene3() {
         subActGrouped = groupByCountry(subsetActData);
         subProjGrouped = groupByCountry(projDataset);
         //plot US vs. Norway
+        var colors = d3.scaleLinear()
+            .domain([0,1,2,3,4])
+            .range(["rgb(170,170,85)","rgb(0,0,255)","rgb(219,85,124)","rgb(128,128,0)","rgb(173,120,107)"])
 
+        //China "rgb(170,170,85)"
+        //Europe "rgb(0,0,255)"
+        //India "rgb(219,85,124)"
+        //USA "rgb(128,128,0)
+        //World rgb(173,120,107)
 
         drawAxes(projDataset, 80);
         plotSubActGrouped();
+        drawLegend(subProjGrouped,colors);
 
 
         /*     var checkbox1 = d3.select('body')
@@ -595,11 +612,14 @@ function switchToScene3() {
 
 //create plot of projected data
 function plotSTEPS(checkboxElem) {
+
     if (checkboxElem.checked) {
         plotSubProjGrouped()
+        showSTEPSTooltip()
     } else {
         d3.select('#visualisation').selectAll("circle").remove()
         d3.selectAll("path").remove();
+        d3.select('#STEPSTooltip').remove();
         plotSubActGrouped();
         var cbSDS =  document.getElementById('SDS');
 
@@ -609,6 +629,10 @@ function plotSTEPS(checkboxElem) {
     }
 }
 function plotSubProjGrouped() {
+
+    var colors = d3.scaleLinear()
+        .domain([0,1,2,3,4])
+        .range(["rgb(170,170,85)","rgb(0,0,255)","rgb(219,85,124)","rgb(128,128,0)","rgb(173,120,107)"])
 
     var lineGen = d3.line()
         .x(function (d) {
@@ -626,7 +650,7 @@ function plotSubProjGrouped() {
             .attr('stroke-width', 3)
             .attr('stroke-dasharray', 10)
             .attr('stroke', function (d, j) {
-                return color(i)
+                return colors(i)
             })
             .attr("fill", "none")
 
@@ -677,7 +701,9 @@ function plotSubProjGrouped() {
 
 }
 function plotSubActGrouped() {
-
+    var colors = d3.scaleLinear()
+        .domain([0,1,2,3,4])
+        .range(["rgb(170,170,85)","rgb(0,0,255)","rgb(219,85,124)","rgb(128,128,0)","rgb(173,120,107)"])
     var lineGen = d3.line()
         .x(function (d) {
             return xScale(formatYear(d.year));
@@ -700,7 +726,7 @@ function plotSubActGrouped() {
             .attr('id', 'line_' + d.key)
             .attr('stroke-width', 2)
             .attr('stroke', function (d, j) {
-                return color(i)
+                return colors(i)
             })
             .attr("fill", "none")
 
@@ -754,7 +780,7 @@ function plotSubActGrouped() {
             .attr('x1', 490)
             .attr('y1', 439)
             .attr('x2', 490)
-            .attr('y2', 150)
+            .attr('y2', 0)
             .style("stroke-width", 2)
             .style("stroke", "lightgrey")
             .style("stroke-dasharray", 3)
@@ -767,11 +793,13 @@ function plotSubActGrouped() {
 function plotSDS(checkboxElem) {
     if (checkboxElem.checked) {
         plotSubProjSDSGrouped()
+        showSDSTooltip()
     }
 
     else {
         d3.select('#visualisation').selectAll("circle").remove()
         d3.selectAll("path").remove();
+        d3.select('#SDSTooltip').remove();
         plotSubActGrouped();
 
         var cbSTEPS =  document.getElementById('STEPS');
@@ -796,7 +824,9 @@ function plotSubProjSDSGrouped()
         subProjSDSGrouped = groupByCountry(projSDSDataset);
         //plot US vs. Norway
 
-
+        var colors = d3.scaleLinear()
+            .domain([0,1,2,3,4])
+            .range(["rgb(170,170,85)","rgb(0,0,255)","rgb(219,85,124)","rgb(128,128,0)","rgb(173,120,107)"])
         var lineGen = d3.line()
             .x(function (d) {
                 return xScale(formatYear(d.year));
@@ -813,7 +843,7 @@ function plotSubProjSDSGrouped()
                 .attr('stroke-width', 1)
                 .attr('stroke-dasharray', 3)
                 .attr('stroke', function (d, j) {
-                    return color(i)
+                    return colors(i)
                 })
                 .attr("fill", "none")
 
@@ -864,5 +894,57 @@ function plotSubProjSDSGrouped()
 
 
     })
+
+}
+
+function showSDSTooltip(){
+
+    var SDSTooltip = d3.select('body')
+        .append('div')
+        .attr('id', 'SDSTooltip')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'gainsboro')
+        .style('opacity', 0)
+
+
+    SDSTooltip.transition().duration(1000).ease(d3.easeCircleIn)
+        .style('opacity', .9)
+
+
+    SDSTooltip.html(
+        '<div style="font-family:Verdana; font-size: 12px; ">' +
+        '<strong>SDS Model</strong>'+'<p>This is where I explain the model</p>'
+    )
+
+        .style('left', '400px')
+        .style('top', '100px')
+
+
+}
+
+function showSTEPSTooltip(){
+
+    var STEPSTooltip = d3.select('body')
+        .append('div')
+        .attr('id', 'STEPSTooltip')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'gainsboro')
+        .style('opacity', 50)
+
+
+    STEPSTooltip.transition().duration(1000).ease(d3.easeCircleIn)
+        .style('opacity', .9)
+
+
+    STEPSTooltip.html(
+        '<div style="font-family:Verdana; font-size: 12px; ">' +
+        '<strong>STEPS Model</strong>'+'<p>This is where I explain the STEPS model</p>'
+    )
+
+        .style('left', '400px')
+        .style('top', '300px')
+
 
 }
