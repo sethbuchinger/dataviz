@@ -34,14 +34,18 @@
 
         }
 
-        #scene a, #scene a:visited{
+        #scene a{
 
             padding: 5px;
+            background-color: light;
             background: #ddd;
             color: #333;
             font-weight: bold;
             text-decoration: none;
         }
+
+
+
 
         #graph_description{
             float:left;
@@ -100,10 +104,11 @@
 </head>
 
 <body onload="switchToScene1()">
+<div style="margin-bottom:10px; color:darkgray; font-weight:lighter">Scene Navigation</div>
 <div id="scene">
-    <a onclick ="switchToScene1()">1</a>
-    <a onclick="switchToScene2()">2</a>
-    <a onclick ="switchToScene3()">3</a>
+    <a id="scene1Button" onclick ="switchToScene1()">1</a>
+    <a id="scene2Button" onclick="switchToScene2()">2</a>
+    <a id="scene3Button" onclick ="switchToScene3()">3</a>
 
 </div>
 <div id = "graph_description">

@@ -97,6 +97,10 @@ var idSlider = document.getElementById('slider');
 var idCheckbox1 = document.getElementById('checkbox1');
 var idCheckbox2 = document.getElementById('checkbox2');
 
+var scene1Button = document.getElementById('scene1Button');
+var scene2Button = document.getElementById('scene2Button');
+var scene3Button = document.getElementById('scene3Button');
+
 function drawLegend(dataGroup,colors){
     //initialize legend
     var legendItemSize = 8;
@@ -160,8 +164,10 @@ function switchToScene1() {
         idScene3.style.display = 'none';
     idCheckbox1.style.display = 'none';
     idCheckbox2.style.display = 'none';
-
-
+    idCheckbox2.style.display = 'none';
+scene1Button.style.background = 'lightskyblue';
+    scene2Button.style.background = '#ddd';
+    scene3Button.style.background = '#ddd';
     //load in scene 1 data
     d3.csv('js/data/IEA-EV-dataEV sales shareCarsHistorical.csv', function (data) {
         parseDate = d3.timeParse("%Y")
@@ -399,6 +405,8 @@ function switchToScene2(){
     idScene3.style.display = 'none';
     idCheckbox1.style.display = 'none';
     idCheckbox2.style.display = 'none';
+    scene1Button.style.background = '#ddd';
+    scene2Button.style.background = 'lightskyblue';
 
 
     //plot US vs. Norway
@@ -442,7 +450,7 @@ function addAnnotations() {
             .append('div')
             .style('position', 'absolute')
             .style('padding', '0 10px')
-            .style('background', 'gainsboro')
+            .style('background', 'none')
             .style('opacity', 0)
 
         var lineTooltip = d3.select('body').append('div')
@@ -479,14 +487,37 @@ function addAnnotations() {
             .attr("cy", function (d) {
                 return yScale(d.value)
             })
-                .attr('r', 5)
-                .style("fill", "orange")
+                .attr('r', 13)
+                .style("fill", "lightgrey")
+            .style("opacity", 0.5)
+
+
+            vis.selectAll('myCircles')
+                .data(annotationData)
+                .enter()
+                .append('circle')
+            .attr("stroke", "none")
+            .attr("cx", function (d) {
+                return xScale(formatYear(d.year))
+            })
+            .attr("cy", function (d) {
+                return yScale(d.value)
+            })
+            .attr('r', 8)
+            .style("fill", "orange")
                 .on('mouseover', function (d) {
+                    lineTooltip.html(
+                        '<div style = "">' + '<br><br><br><br>' + '</div>'
+                    )
+                        .style('left', (d3.event.pageX - 0) + 'px')
+                        .style('top', (d3.event.pageY - 100) + 'px')
 
                     circleTooltip.transition().duration(200)
-                        .style('opacity', .9)
+                        .style('opacity', 1)
+                        .style('background', 'none')
+
                     circleTooltip.html(
-                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.annotation +'</div>'
+                        '<div style="font-family:sans-serif; font-size: 1rem;">' + d.annotation +'</div>'
                     )
 
 
@@ -494,11 +525,7 @@ function addAnnotations() {
                         .style('top', (d3.event.pageY - 200) + 'px')
 
 
-                    lineTooltip.html(
-                        '<div style = "">' + '<br><br><br><br><br><br>' + '</div>'
-                    )
-                        .style('left', (d3.event.pageX - 0) + 'px')
-                        .style('top', (d3.event.pageY - 120) + 'px')
+
 
                 })
                 .on('mouseout', function () {
