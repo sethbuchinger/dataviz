@@ -7,11 +7,13 @@ var subProjGrouped;
 var subsetActData;
 var projSDSDataset;
 var subProjSDSGrouped;
+
+var annotationData;
 var sliderLine;
 // slider
 var sMargin = {top:0, right:50, bottom:0, left:365},
     sWidth = 750
-    sHeight = 100- sMargin.top - sMargin.bottom;
+    sHeight = 75- sMargin.top - sMargin.bottom;
 
 var formatDateIntoYear = d3.timeFormat("%Y");
 
@@ -19,65 +21,12 @@ var formatDateIntoYear = d3.timeFormat("%Y");
 var startDate = new Date (2010, 1, 1);
 var endDate = new Date ( 2020, 1, 1)
 
-var svgSlider = d3.select("#slider")
-    .append("svg")
-    .attr("width", sWidth + sMargin.left + sMargin.right)
-    .attr("height", sHeight);
 
-var x = d3.scaleTime()
-    .domain([startDate,endDate])
-    .range([0,sWidth])
-    .clamp(true)
-
-var slider = svgSlider.append("g")
-    .attr("class","slider")
-    .attr("transform", "translate(" + sMargin.left + "," + sHeight /2 + ")");
-
-
-slider.append("line")
-    .attr("class","track")
-    .attr("x1", x.range()[0])
-    .attr("x2", x.range()[1])
-    .select(function() {return this.parentNode.appendChild(this.cloneNode(true));})
-    .attr("class", "track-inset")
-    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-overlay")
-    .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() { update(x.invert(d3.event.x)); }));
-
-slider.insert("g", ".track-overlay")
-    .attr("class", "ticks")
-    .attr("transform", "translate(0," + 18 + ")")
-    .selectAll("text")
-    .data(x.ticks(11))
-    .enter()
-    .append("text")
-    .attr("font-size",'10px')
-    .attr("x", x)
-    .attr("y", 10)
-    .attr("text-anchor", "middle")
-    .text(function(d) { return formatDateIntoYear(d); });
-
-var handle = slider.insert("circle", ".track-overlay")
-    .attr("class", "handle")
-    .attr("r", 9)
-    .attr("cx",450)
-
-
-
-
-var label = slider.append("text")
-    .attr("class", "label")
-    .attr("text-anchor", "middle")
-    .attr("font-size",'12px')
-    .text("Year Selector")
-    .attr("transform", "translate(0," + (50) + ")")
-
-
+var handle
+var label
 
 var color
-
+var x
 
 
 
@@ -158,6 +107,9 @@ function switchToScene1() {
     d3.select('#visualisation').selectAll("line").remove()
         d3.select('#legend').selectAll("svg").remove()
     d3.selectAll('#arrowTextBox').remove()
+    d3.select('body').selectAll('#myAnnotations').remove()
+    d3.select('body').selectAll('#myLineToolTips').remove()
+    d3.select('#slider').selectAll('svg').remove()
         idScene1.style.display = 'block';
         idScene2.style.display = 'none';
         idSlider.style.display = 'block';
@@ -168,6 +120,65 @@ function switchToScene1() {
 scene1Button.style.background = 'lightskyblue';
     scene2Button.style.background = '#ddd';
     scene3Button.style.background = '#ddd';
+
+
+    var svgSlider = d3.select("#slider")
+        .append("svg")
+        .attr("width", sWidth + sMargin.left + sMargin.right)
+        .attr("height", sHeight);
+
+    x = d3.scaleTime()
+        .domain([startDate,endDate])
+        .range([0,sWidth])
+        .clamp(true)
+
+    var slider = svgSlider.append("g")
+        .attr("class","slider")
+        .attr("transform", "translate(" + sMargin.left + "," + sHeight /2 + ")");
+
+
+    slider.append("line")
+        .attr("class","track")
+        .attr("x1", x.range()[0])
+        .attr("x2", x.range()[1])
+        .select(function() {return this.parentNode.appendChild(this.cloneNode(true));})
+        .attr("class", "track-inset")
+        .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+        .attr("class", "track-overlay")
+        .call(d3.drag()
+            .on("start.interrupt", function() { slider.interrupt(); })
+            .on("start drag", function() { update(x.invert(d3.event.x)); }))
+            //.on("start drag", function() { updateAnnotations(x.invert(d3.event.x)); }));
+
+    slider.insert("g", ".track-overlay")
+        .attr("class", "ticks")
+        .attr("transform", "translate(0," + 18 + ")")
+        .selectAll("text")
+        .data(x.ticks(11))
+        .enter()
+        .append("text")
+        .attr("font-size",'10px')
+        .attr("x", x)
+        .attr("y", 10)
+        .attr("text-anchor", "middle")
+        .text(function(d) { return formatDateIntoYear(d); });
+
+    handle = slider.insert("circle", ".track-overlay")
+        .attr("class", "handle")
+        .attr("r", 9)
+        .attr("cx",450)
+
+
+
+
+    label = slider.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "middle")
+        .attr("font-size",'14px')
+        .stlye("font-color", 'lightblue')
+        .text("Use the slider below to focus on a Year")
+        .attr("transform", "translate(125," + (-20) + ")")
+
     //load in scene 1 data
     d3.csv('js/data/IEA-EV-dataEV sales shareCarsHistorical.csv', function (data) {
         parseDate = d3.timeParse("%Y")
@@ -360,16 +371,45 @@ function update(h) {
     var upDuration = 0;
     var easeBack = d3.easePolyOut;
     handle.attr("cx", x(h));
-    label
-        .attr("x", x(h))
-        .text(formatDateIntoYear(h));
     var newData = dataset.filter(function (d) {
         console.log(h)
         return d.year < h;
     })
+
     d3.selectAll("path").remove();
     drawPlot(newData,upDuration);
 }
+
+function updateAnnotations(h) {
+
+    d3.csv('js/data/annotations.csv', function (data) {
+        parseDate = d3.timeParse("%Y")
+        data.forEach(function (d) {
+            d.year = new Date(+d.year, 0, 1)
+            d.value = +d.value;
+        })
+
+        annotationData = data;
+    })
+
+
+        handle.attr("cx", x(h));
+    label
+        .attr("x", x(h))
+    var newAnnotationData = annotationData.filter(function (d) {
+        console.log(h)
+        return d.year < h;
+    })
+
+
+    d3.select('#visualisation').selectAll('#innerCircles').remove()
+    d3.select('#visualisation').selectAll('#outerCircles').remove()
+    d3.select('body').selectAll('#myAnnotations').remove()
+    d3.select('body').selectAll('#circleToolTip').remove()
+    d3.select('body').selectAll('#myLineToolTips').remove()
+    addAnnotations(newAnnotationData);
+}
+
 
 
 function axesLabels(){
@@ -399,14 +439,71 @@ function switchToScene2(){
     d3.select('#legend').selectAll("svg").remove()
     d3.selectAll('#arrowTextBox').remove()
     d3.select('#visualisation').selectAll("line").remove()
+    d3.select('#slider').selectAll('svg').remove()
     idScene1.style.display = 'none';
     idScene2.style.display = 'block';
-    idSlider.style.display = 'none';
+    //idSlider.style.display = 'none';
     idScene3.style.display = 'none';
     idCheckbox1.style.display = 'none';
     idCheckbox2.style.display = 'none';
     scene1Button.style.background = '#ddd';
     scene2Button.style.background = 'lightskyblue';
+
+    var svgSlider = d3.select("#slider")
+        .append("svg")
+        .attr("width", sWidth + sMargin.left + sMargin.right)
+        .attr("height", sHeight);
+
+    x = d3.scaleTime()
+        .domain([startDate,endDate])
+        .range([0,sWidth])
+        .clamp(true)
+
+    var slider = svgSlider.append("g")
+        .attr("class","slider")
+        .attr("transform", "translate(" + sMargin.left + "," + sHeight /2 + ")");
+
+
+    slider.append("line")
+        .attr("class","track")
+        .attr("x1", x.range()[0])
+        .attr("x2", x.range()[1])
+        .select(function() {return this.parentNode.appendChild(this.cloneNode(true));})
+        .attr("class", "track-inset")
+        .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+        .attr("class", "track-overlay")
+        .call(d3.drag()
+            .on("start.interrupt", function() { slider.interrupt(); })
+           // .on("start drag", function() { update(x.invert(d3.event.x)); }))
+    .on("start drag", function() { updateAnnotations(x.invert(d3.event.x)); }));
+
+    slider.insert("g", ".track-overlay")
+        .attr("class", "ticks")
+        .attr("transform", "translate(0," + 18 + ")")
+        .selectAll("text")
+        .data(x.ticks(11))
+        .enter()
+        .append("text")
+        .attr("font-size",'10px')
+        .attr("x", x)
+        .attr("y", 10)
+        .attr("text-anchor", "middle")
+        .text(function(d) { return formatDateIntoYear(d); });
+
+    handle = slider.insert("circle", ".track-overlay")
+        .attr("class", "handle")
+        .attr("r", 9)
+        .attr("cx",0)
+
+
+
+
+    label = slider.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "middle")
+        .attr("font-size",'12px')
+        .text("Year Selector")
+        .attr("transform", "translate(0," + (50) + ")")
 
 
     //plot US vs. Norway
@@ -425,60 +522,27 @@ function switchToScene2(){
    var colors = d3.scaleLinear()
         .domain([0,1,2])
         .range(["rgb(255,218,185)","rgb(128,128,0)","rgb(173,120,107)"])
-    drawAxes(subsetData,80);
+    drawAxes(subsetData,100);
     drawPlot(subsetData,2000,colors);
     drawLegend(groupedData,colors);
     axesLabels();
-    addAnnotations(subsetData);
+    //addAnnotations(subsetData);
 
 
 
 }
 
 
-function addAnnotations() {
+function addAnnotations(passedAnnotationData) {
 
-    d3.csv('js/data/annotations.csv', function (data) {
-        parseDate = d3.timeParse("%Y")
-        data.forEach(function (d) {
-            d.year = new Date(+d.year, 0, 1)
-            d.value = +d.value;
-        });
 
-        var annotationData = data;
-        var circleTooltip = d3.select('body')
-            .append('div')
-            .style('position', 'absolute')
-            .style('padding', '0 10px')
-            .style('background', 'none')
-            .style('opacity', 0)
 
-        var lineTooltip = d3.select('body').append('div')
-            .style('border-left', '2px dotted slategray')
-            .style('position', 'absolute')
-            .style('color', 'black')
-
-        //var groupedAnnData = groupByCountry(annotationData);
-
-        console.log(annotationData)
-        /*  vis.selectAll('myCircles')
-              .data(projDataset)
-              .enter()
-              .append('circle')
-              .attr("fill", "lightgrey")
-              .attr("stroke", "none")
-              .attr("cx", function (d) {
-                  return xScale(formatYear(d.year))
-              })
-              .attr("cy", function (d) {
-                  return yScale(d.value)
-              })
-              .attr("r", 3)*/
 //1st annotation
         vis.selectAll('myCircles')
-            .data(annotationData)
+            .data(passedAnnotationData)
             .enter()
             .append('circle')
+            .attr("id", "outerCircles")
             .attr("fill", "lightgrey")
             .attr("stroke", "none")
             .attr("cx", function (d) {
@@ -493,9 +557,10 @@ function addAnnotations() {
 
 
             vis.selectAll('myCircles')
-                .data(annotationData)
+                .data(passedAnnotationData)
                 .enter()
                 .append('circle')
+                .attr("id", "innerCircles")
             .attr("stroke", "none")
             .attr("cx", function (d) {
                 return xScale(formatYear(d.year))
@@ -503,71 +568,30 @@ function addAnnotations() {
             .attr("cy", function (d) {
                 return yScale(d.value)
             })
-            .attr('r', 8)
+            .attr('r', 5)
             .style("fill", "orange")
-                .on('mouseover', function (d) {
-                    lineTooltip.html(
-                        '<div style = "">' + '<br><br><br><br>' + '</div>'
-                    )
-                        .style('left', (d3.event.pageX - 0) + 'px')
-                        .style('top', (d3.event.pageY - 100) + 'px')
 
-                    circleTooltip.transition().duration(200)
-                        .style('opacity', 1)
-                        .style('background', 'none')
-
-                    circleTooltip.html(
-                        '<div style="font-family:sans-serif; font-size: 1rem;">' + d.annotation +'</div>'
-                    )
-
-
-                        .style('left', (d3.event.pageX - 50) + 'px')
-                        .style('top', (d3.event.pageY - 200) + 'px')
-
-
+    var circleTooltip = d3.select('body').selectAll('myAnnotations')
+        .data(passedAnnotationData)
+        .enter()
+        .append('div')
+        .attr("id", "myAnnotations")
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'none')
+        .style('opacity', 1)
+        .style('font-size','12px')
+        .style('left', function(d,i){
+            return xScale(formatYear(d.year))+275
+            +'px'})
+        .html(function(d){ return d.annotation})
+        .style('top',function (d,i){
+            return yScale(d.value)-35
+                +'px'})
 
 
-                })
-                .on('mouseout', function () {
-                    circleTooltip.html('')
-                    lineTooltip.html('')
-                })
-    })
+
         }
-            //2nd annotation
-
-            /*  d3.select("#visualisation").append("circle")
-                  .attr("cx", 200)
-                  .attr("cy", 427)
-                  .attr('r', 5)
-                  .style("fill", "orange")
-                  .on('mouseover', function () {
-
-                      circleTooltip.transition().duration(200)
-                          .style('opacity', .9)
-                      circleTooltip.html(
-                          '<div style="font-family:Verdana; font-size: 10px; ">' +
-                          '<strong>New EV Options Launched in Norway</strong>'+'<ul><li>Mitsubishi i-MiEV</li>' +
-                          '<li>Nissan Leaf</li></ul>'+'</div>'
-
-                      )
-                          .style('left', (d3.event.pageX - ) + 'px')
-                          .style('top', (d3.event.pageY - 200) + 'px')
-
-
-
-                      lineTooltip.html(
-                          '<div style = "">'+'<br><br><br><br><br><br>'+ '</div>'
-
-                      )
-                          .style('left', (d3.event.pageX - 0) + 'px')
-                          .style('top', (d3.event.pageY - 120) + 'px')
-
-                  })
-                  .on('mouseout', function () {
-                      circleTooltip.html('')
-                      lineTooltip.html('')
-                  })*/
 
 
 
@@ -581,6 +605,8 @@ function switchToScene3() {
     d3.select('#legend').selectAll("svg").remove()
     d3.select('#SDSTooltip').remove();
     d3.select('#STEPSTooltip').remove();
+    d3.select('body').selectAll('#myAnnotations').remove()
+    d3.select('body').selectAll('#myLineToolTips').remove()
 
     idScene1.style.display = 'none';
     idScene2.style.display = 'none';
@@ -1010,7 +1036,9 @@ function showSDSTooltip(){
 
     SDSTooltip.html(
         '<div style="font-family:Verdana; font-size: 12px; ">' +
-        '<strong>SDS Model</strong>'+'<p>This is where I explain the model</p>'
+        '<h3>SDS Model</h3>'+'<p>The SDS models a rapid and deep transformation of <br> the global energy sector' +
+        'whic is likely (66% probablility) <br> to limit the rise in average global' +
+        'temperature to 1.8 deg C <br> and on track for gloab net zero by 2070.</p>'
     )
 
         .style('left', '400px')
@@ -1036,9 +1064,10 @@ function showSTEPSTooltip(){
 
     STEPSTooltip.html(
         '<div style="font-family:Verdana; font-size: 12px; ">' +
-        '<strong>STEPS Model</strong>'+'<p>This is where I explain the STEPS model</p>'
+        '<h3>STEPS Model</h3>'+'<p>The Staded Policies Scenario (STEPS) models the likely <br> global warming effect ' +
+        'with the current policies that are in<br> place  for  2021.  The likely resuts is a 2.7 deg C increase <br>  and  falling' +
+        ' well short of the global net-zero emissions <br> by 2050 goal'+'</p>'
     )
-
         .style('left', '400px')
         .style('top', '300px')
 
