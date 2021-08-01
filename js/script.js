@@ -7,18 +7,19 @@ var subProjGrouped;
 var subsetActData;
 var projSDSDataset;
 var subProjSDSGrouped;
+var newData;
 
 var annotationData;
 var sliderLine;
 // slider
-var sMargin = {top:0, right:50, bottom:0, left:365},
+var sMargin = {top:0, right:50, bottom:0, left:410},
     sWidth = 750
     sHeight = 75- sMargin.top - sMargin.bottom;
 
 var formatDateIntoYear = d3.timeFormat("%Y");
 
 
-var startDate = new Date (2010, 1, 1);
+var startDate = new Date (2010, 0, 1);
 var endDate = new Date ( 2020, 1, 1)
 
 
@@ -36,6 +37,7 @@ var tooltip = d3.select('body')
     .style('padding', '0 10px')
     .style('background', 'white')
     .style('opacity', 0)
+    .style('pointer-events', 'none!important')
 //import csv
 
 var idScene1 = document.getElementById('scene_1');
@@ -49,6 +51,13 @@ var idCheckbox2 = document.getElementById('checkbox2');
 var scene1Button = document.getElementById('scene1Button');
 var scene2Button = document.getElementById('scene2Button');
 var scene3Button = document.getElementById('scene3Button');
+var myCircles = document.getElementById('myCircles');
+var sliderTipElem= document.getElementById('sliderTip');
+
+var sourceInto = d3.select('body').append('div').html('<div id="sourceInfo" style="float: left; position: fixed;  font-style: italic; font-size: 8px; bottom; 0px">'
+    +'Source: IEA (2021), Global EV Outlook 2021, IEA, Paris<br> https://www.iea.org/reports/global-ev-outlook-2021'+
+    '</div>'
+)
 
 function drawLegend(dataGroup,colors){
     //initialize legend
@@ -110,6 +119,11 @@ function switchToScene1() {
     d3.select('body').selectAll('#myAnnotations').remove()
     d3.select('body').selectAll('#myLineToolTips').remove()
     d3.select('#slider').selectAll('svg').remove()
+    d3.select('body').selectAll('#sliderTip').remove()
+    d3.select('body').selectAll('#tooltipTip').remove()
+    d3.select('body').selectAll('#SDSTooltip').remove()
+    d3.select('body').selectAll('#STEPSTooltip').remove()
+    d3.select('body').selectAll('#checkboxTip').remove()
         idScene1.style.display = 'block';
         idScene2.style.display = 'none';
         idSlider.style.display = 'block';
@@ -120,6 +134,45 @@ function switchToScene1() {
 scene1Button.style.background = 'lightskyblue';
     scene2Button.style.background = '#ddd';
     scene3Button.style.background = '#ddd';
+
+    var sliderTip = d3.select('body')
+        .append('div')
+        .attr('id','sliderTip')
+        .style('top','480px')
+        .style('left', '980px')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'rgb(255,255,153)')
+        .style('border-radius','25px')
+        .style('opacity', 0.75)
+        .html(
+            '<div style="font-family:sans-serif; font-size: 16px; font-weight: bold; text-align: center">Click and drag slider to filter out data by year<br>' +
+            '<em'
+            + '>(click to clear)</em><div style="font-size:48px;">&#8595</div></div>'
+        )
+        .on("click",function(){
+            d3.select('body').selectAll('#sliderTip').remove()
+        })
+
+    var tooltipTip = d3.select('body')
+        .append('div')
+        .attr('id','tooltipTip')
+        .style('top','125px')
+        .style('left', '800px')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'rgb(255,255,153)')
+        .style('border-radius','25px')
+        .style('opacity', 0.75)
+        .html(
+            '<div style="font-family:sans-serif; font-size: 16px; font-weight: bold; text-align: center">Hover over points for more information<br>' +
+            '<em'
+            + '>(click to clear)</em><div style="font-size:48px;">&nbsp;&nbsp;&nbsp;&#8600</div></div>'
+        )
+        .on("click",function(){
+            d3.select('body').selectAll('#tooltipTip').remove()
+        })
+
 
 
     var svgSlider = d3.select("#slider")
@@ -135,6 +188,9 @@ scene1Button.style.background = 'lightskyblue';
     var slider = svgSlider.append("g")
         .attr("class","slider")
         .attr("transform", "translate(" + sMargin.left + "," + sHeight /2 + ")");
+
+
+
 
 
     slider.append("line")
@@ -166,18 +222,17 @@ scene1Button.style.background = 'lightskyblue';
     handle = slider.insert("circle", ".track-overlay")
         .attr("class", "handle")
         .attr("r", 9)
-        .attr("cx",450)
+        .attr("cx",750)
 
 
 
 
-    label = slider.append("text")
+/*    label = slider.append("text")
         .attr("class", "label")
         .attr("text-anchor", "middle")
         .attr("font-size",'14px')
-        .stlye("font-color", 'lightblue')
         .text("Use the slider below to focus on a Year")
-        .attr("transform", "translate(125," + (-20) + ")")
+        .attr("transform", "translate(125," + (-20) + ")")*/
 
     //load in scene 1 data
     d3.csv('js/data/IEA-EV-dataEV sales shareCarsHistorical.csv', function (data) {
@@ -194,12 +249,47 @@ scene1Button.style.background = 'lightskyblue';
         //console.log(JSON.stringify(dataGroup))
         dataset = data;
         var easeInto = d3.easeLinear;
-       var newDuration = 3000;
+       var newDuration = 500;
        var groupedData = groupByCountry(dataset);
         drawLegend(groupedData,colors);
-        drawAxes(dataset,70);
+        drawAxes(dataset,80);
         drawPlot(dataset,newDuration,colors);
         axesLabels();
+
+        vis.selectAll('myCircles')
+            .data(dataset)
+            .enter()
+            .append('circle')
+            .attr("id", "myCircles")
+            .attr("fill", "lightgrey")
+            .attr("stroke", "none")
+            .attr("cx", function (d) {
+                return xScale(formatYear(d.year))
+            })
+            .attr("cy", function (d) {
+                return yScale(d.value)
+            })
+            .attr("r", 5)
+            .on('mouseover', function (d) {
+                // console.log(d)
+                tooltip.transition().duration(1000)
+                    .style('opacity', .9)
+                tooltip.html(
+                    '<div style="font-family:sans-serif; font-size: 10px; font-weight: bold">Region:' + d.region
+                    + '<br>Value:' + d3.format(".1f")(d.value)
+                    + '%'+'<br>Year:'+ formatYear(d.year) + '</div>'
+                )
+                    .style('left', (d3.event.pageX - 35) + 'px')
+                    .style('top', (d3.event.pageY - 30) + 'px')
+                    .style("display",null)
+                    .style("pointer-events", 'none')
+            })
+            .on('mouseout', function () {
+                tooltip.html('')
+                    .style("display", "none")
+
+            })
+
 
 
 
@@ -239,7 +329,7 @@ scene1Button.style.background = 'lightskyblue';
             .domain([0, 2, 4, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30, 32, 34])
             .range(["red", "palegreen", "yellow", "blue", "aqua", "coral", "darkviolet", "seagreen", "skyblue", "peachpuff", "royalblue", "magenta", "navy", "olive", "orchid"])
 
-        // set scales and axes
+
 
         formatYear = d3.timeFormat("%Y")
         xScale = d3.scaleLinear()
@@ -327,7 +417,7 @@ scene1Button.style.background = 'lightskyblue';
                 //.select('path').transition().duration(20)
                 .attr('stroke-width', 2)
                 .attr('stroke', function (d, j) {
-                    return color(i)
+                    return colors(i)
                 })
                 .attr("fill", "none")
 
@@ -344,6 +434,7 @@ scene1Button.style.background = 'lightskyblue';
                     )
                         .style('left', (d3.event.pageX - 35) + 'px')
                         .style('top', (d3.event.pageY - 30) + 'px')
+
                 })
                 .on('mouseout', function () {
                     tooltip.html('')
@@ -368,16 +459,60 @@ scene1Button.style.background = 'lightskyblue';
     }
 
 function update(h) {
+
     var upDuration = 0;
     var easeBack = d3.easePolyOut;
     handle.attr("cx", x(h));
-    var newData = dataset.filter(function (d) {
+    newData = dataset.filter(function (d) {
         console.log(h)
         return d.year < h;
     })
 
     d3.selectAll("path").remove();
-    drawPlot(newData,upDuration);
+    d3.select("#visualisation").selectAll('#myCircles').remove();
+    drawPlot(newData,upDuration,colors);
+
+
+    vis.selectAll('myCircles')
+        .data(newData)
+        .enter()
+        .append('circle')
+        .attr("id", "myCircles")
+        .attr("fill", "lightgrey")
+        .attr("stroke", "none")
+        .attr("cx", function (d) {
+            return xScale(formatYear(d.year))
+        })
+        .attr("cy", function (d) {
+            return yScale(d.value)
+        })
+        .attr("r", 5)
+        .on('mouseover', function (d) {
+            // console.log(d)
+            tooltip.transition().duration(1000)
+                .style('opacity', .9)
+            tooltip.html(
+                '<div style="font-family:sans-serif; font-size: 10px; font-weight: bold">Region:' + d.region
+                + '<br>Value:' + d3.format(".1f")(d.value)
+                + '%'+'<br>Year:'+ formatYear(d.year) + '</div>'
+            )
+                .style('left', (d3.event.pageX - 35) + 'px')
+                .style('top', (d3.event.pageY - 30) + 'px')
+                .style("display",null)
+                .style("pointer-events", 'none')
+
+        })
+        .on('mouseout', function () {
+            tooltip.html('')
+
+
+
+        })
+
+
+
+
+
 }
 
 function updateAnnotations(h) {
@@ -425,14 +560,15 @@ function axesLabels(){
 
     vis.append("text")
         .attr("transform",
-            "translate(" + (WIDTH/2) + " ," +
+            "translate(" + ((WIDTH/2)+45) + " ," +
             (HEIGHT + MARGINS.top + 10) + ")")
         .style("text-anchor", "middle")
         .text("Date");
 }
 
 function switchToScene2(){
-
+    d3.select('body').selectAll('#sliderTip').remove()
+    d3.select('body').selectAll('#tooltipTip').remove()
     d3.selectAll("path").remove();
     d3.select('#visualisation').selectAll("circle").remove()
     d3.select('#visualisation').selectAll("g").remove()
@@ -440,14 +576,18 @@ function switchToScene2(){
     d3.selectAll('#arrowTextBox').remove()
     d3.select('#visualisation').selectAll("line").remove()
     d3.select('#slider').selectAll('svg').remove()
+    d3.select('body').selectAll('#SDSTooltip').remove()
+    d3.select('body').selectAll('#STEPSTooltip').remove()
+    d3.select('body').selectAll('#checkboxTip').remove()
     idScene1.style.display = 'none';
     idScene2.style.display = 'block';
-    //idSlider.style.display = 'none';
+    idSlider.style.display = 'block';
     idScene3.style.display = 'none';
     idCheckbox1.style.display = 'none';
     idCheckbox2.style.display = 'none';
     scene1Button.style.background = '#ddd';
     scene2Button.style.background = 'lightskyblue';
+    scene3Button.style.background = '#ddd';
 
     var svgSlider = d3.select("#slider")
         .append("svg")
@@ -462,6 +602,27 @@ function switchToScene2(){
     var slider = svgSlider.append("g")
         .attr("class","slider")
         .attr("transform", "translate(" + sMargin.left + "," + sHeight /2 + ")");
+
+
+    var sliderTip = d3.select('body')
+        .append('div')
+        .attr('id','sliderTip')
+        .style('top','480px')
+        .style('left', '205px')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'rgb(255,255,153)')
+        .style('border-radius','25px')
+        .style('opacity', 0.75)
+        .html(
+            '<div style="font-family:sans-serif; font-size: 16px; font-weight: bold; text-align: center">Click and drag slider to reveal events in the timeline<br>' +
+            '<em'
+            + '>(click to clear)</em><div style="font-size:48px;">&#8595</div></div>'
+        )
+        .on("click",function(){
+            d3.select('body').selectAll('#sliderTip').remove()
+        })
+
 
 
     slider.append("line")
@@ -599,6 +760,8 @@ function addAnnotations(passedAnnotationData) {
 
 function switchToScene3() {
 
+    d3.select('body').selectAll('#sliderTip').remove()
+    d3.select('body').selectAll('#tooltipTip').remove()
     d3.selectAll("path").remove();
     d3.select('#visualisation').selectAll("circle").remove()
     d3.select('#visualisation').selectAll("g").remove()
@@ -614,8 +777,31 @@ function switchToScene3() {
     idScene3.style.display = 'block';
     idCheckbox1.style.display = 'block';
     idCheckbox2.style.display = 'block';
+    scene1Button.style.background = '#ddd';
+    scene2Button.style.background = '#ddd';
+    scene3Button.style.background = 'lightskyblue';
 
     plotArrowText();
+
+    var checkboxTip = d3.select('body')
+        .append('div')
+        .attr('id','checkboxTip')
+        .style('top','455px')
+        .style('left', '800px')
+        .style('position', 'absolute')
+        .style('padding', '0 10px')
+        .style('background', 'rgb(255,255,153)')
+        .style('border-radius','25px')
+        .style('opacity', 0.75)
+        .html(
+            '<div style="font-family:sans-serif; font-size: 16px; font-weight: bold; text-align: center">Select scenario(s) below to plot the projection data<br>' +
+            '<em'
+            + '>(click to clear)</em><div style="font-size:48px;">&#8595;&nbsp;&nbsp;&nbsp;&nbsp;&#8595</div></div>'
+        )
+        .on("click",function(){
+            d3.select('body').selectAll('#checkboxTip').remove()
+        })
+
 
     d3.csv('js/data/IEA-EV-dataEV sales shareCarsProjection-CombinedSTEPS.csv', function (data) {
         parseDate = d3.timeParse("%Y")
@@ -652,45 +838,6 @@ function switchToScene3() {
         drawAxes(projDataset, 80);
         plotSubActGrouped();
         drawLegend(subProjGrouped,colors);
-
-
-
-        /*     var checkbox1 = d3.select('body')
-                 .append('div')
-                 .attr('id','checkbox1')
-                 .style('float','left')
-                 .style('margin-left','900px')
-                 .style('position','fixed')
-                 .append('label')
-                 .attr('for','model1')
-                 .text("STEPS")
-                 .append('input')
-                 .attr('type','checkbox')
-                 .attr('id', 'model1')
-                 .attr('name','model1')
-                 .attr('value',"Model1")
-                 .attr('onchange',"plotSTEPS(this)")
-
-
-
-             var checkbox2 = d3.select('body')
-
-                 .append('div')
-                 .attr('id','checkbox2')
-                 .style('float','left')
-                 .style('margin-left','1000px')
-                 .style('position','fixed')
-                 .append('label')
-                 .attr('for','model3')
-                 .text("SDS")
-                 .append('input')
-                 .attr('type','checkbox')
-                 .attr('id', 'model1')
-                 .attr('name','model1')
-                 .attr('value',"Model1")*/
-
-
-
 
 
 
@@ -751,8 +898,8 @@ function plotSubProjGrouped() {
                 tooltip.transition().duration(200)
                     .style('opacity', .9)
                 tooltip.html(
-                    '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.key + '</div>'
-                )
+                    '<div style="font-family:sans-serif; font-size: 10px; font-weight: bold">'+'Region: ' + d.key +
+                    '<br>Scenario: STEPS '+'</div>')
                     .style('left', (d3.event.pageX - 35) + 'px')
                     .style('top', (d3.event.pageY - 30) + 'px')
             })
@@ -771,16 +918,18 @@ function plotSubProjGrouped() {
             .attr("cy", function (d) {
                 return yScale(d.value)
             })
-            .attr("r", 3)
+            .attr("r", 5)
             .on('mouseover', function (d) {
                 // console.log(d)
                 tooltip.transition().duration(200)
                     .style('opacity', .9)
                 tooltip.html(
-                    '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.value + '</div>'
-                )
+                    '<div style="font-family:sans-serif; font-size: 10px; font-weight: bold">Region:' + d.region
+                    + '<br>Value:' + d3.format(".1f")(d.value)
+                    + '%'+'<br>Year:'+ formatYear(d.year) + '<br>Scenario: STEPS '+'</div>'+ '</div>')
                     .style('left', (d3.event.pageX - 35) + 'px')
                     .style('top', (d3.event.pageY - 30) + 'px')
+                    .style("pointer-events", 'none')
             })
             .on('mouseout', function () {
                 tooltip.html('')
@@ -841,7 +990,7 @@ function plotSubActGrouped() {
             .attr("stroke-dashoffset",pathLength)
             .transition()
             .ease(d3.easeLinear)
-            .duration(2000)
+            .duration(0)
             .attr("stroke-dashoffset", 0)
 
 
@@ -857,7 +1006,7 @@ function plotSubActGrouped() {
             .attr("cy", function (d) {
                 return yScale(d.value)
             })
-            .attr("r", 3)
+            .attr("r", 5)
             .on('mouseover', function (d) {
                 // console.log(d)
                 tooltip.transition().duration(200)
@@ -909,8 +1058,8 @@ function plotArrowText(){
         '<div style="font-family:Verdana; font-size: 24px;">' +
         '<p style="color: darkgray">&#x27F8&nbspHistorical&nbsp&nbsp&nbsp &nbsp &nbsp&nbsp&nbsp&nbspProjected&nbsp&#x27F9</p>'
     )
-        .style('left', '530px')
-        .style('top', '10px')
+        .style('left', '580px')
+        .style('top', '18px')
 }
 function plotSDS(checkboxElem) {
     if (checkboxElem.checked) {
@@ -962,7 +1111,7 @@ function plotSubProjSDSGrouped()
                 .attr('d', pathData2)
                 .attr('class', 'line')
                 .attr('id', 'line_' + d.key)
-                .attr('stroke-width', 1)
+                .attr('stroke-width', 2)
                 .attr('stroke-dasharray', 3)
                 .attr('stroke', function (d, j) {
                     return colors(i)
@@ -975,7 +1124,8 @@ function plotSubProjSDSGrouped()
                     tooltip.transition().duration(200)
                         .style('opacity', .9)
                     tooltip.html(
-                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.key + '</div>'
+                        '<div style="font-family:sans-serif; font-size: 10px; font-weight: bold">'+'Region: ' + d.key +
+                        '<br>Scenario: SDS '+'</div>'
                     )
                         .style('left', (d3.event.pageX - 35) + 'px')
                         .style('top', (d3.event.pageY - 30) + 'px')
@@ -995,16 +1145,17 @@ function plotSubProjSDSGrouped()
                 .attr("cy", function (d) {
                     return yScale(d.value)
                 })
-                .attr("r", 3)
+                .attr("r", 5)
                 .on('mouseover', function (d) {
                     // console.log(d)
                     tooltip.transition().duration(200)
                         .style('opacity', .9)
-                    tooltip.html(
-                        '<div style="font-family:sans-serif; font-size: 1rem; font-weight: bold">' + d.value + '</div>'
-                    )
+                    tooltip.html('<div style="font-family:sans-serif; font-size: 10px; font-weight: bold">Region:' + d.region
+                        + '<br>Value:' + d3.format(".1f")(d.value)
+                        + '%'+'<br>Year:'+ formatYear(d.year) + '<br>Scenario: SDS '+'</div>'+ '</div>')
                         .style('left', (d3.event.pageX - 35) + 'px')
                         .style('top', (d3.event.pageY - 30) + 'px')
+                        .style("pointer-events", 'none')
                 })
                 .on('mouseout', function () {
                     tooltip.html('')
@@ -1028,9 +1179,10 @@ function showSDSTooltip(){
         .style('padding', '0 10px')
         .style('background', 'gainsboro')
         .style('opacity', 0)
+        .style('border-radius','25px')
 
 
-    SDSTooltip.transition().duration(1000).ease(d3.easeCircleIn)
+    SDSTooltip.transition().duration(0).ease(d3.easeCircleIn)
         .style('opacity', .9)
 
 
@@ -1056,6 +1208,7 @@ function showSTEPSTooltip(){
         .style('padding', '0 10px')
         .style('background', 'gainsboro')
         .style('opacity', 50)
+        .style('border-radius','25px')
 
 
     STEPSTooltip.transition().duration(1000).ease(d3.easeCircleIn)
