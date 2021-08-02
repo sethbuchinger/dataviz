@@ -1190,7 +1190,7 @@ function showSDSTooltip(){
         '<div style="font-family:Verdana; font-size: 12px; ">' +
         '<h3>SDS Model</h3>'+'<p>The SDS models a rapid and deep transformation of <br> the global energy sector' +
         ' which is likely (66% probablility) <br> to limit the rise in average global' +
-        'temperature to 1.8 deg C <br> and on track for global net zero emissions by 2070.</p>'
+        ' temperature to 1.8 deg C <br> and on track for global net zero emissions by 2070.</p>'
     )
 
         .style('left', '400px')
